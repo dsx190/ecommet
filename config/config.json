@@ -1,0 +1,8 @@
+{
+	"db": {
+		"host": "mongodb://localhost:27017/ecommet"
+	},
+	"server": {
+		"port": 3000
+	}
+}

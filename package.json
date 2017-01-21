@@ -1,0 +1,20 @@
+{
+  "name": "ecommet",
+  "version": "0.1.0",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsx190/ecommet.git"
+  },
+  "description": "E-commerce framework built in NodeJS",
+  "author": "David Salas <dsx190@gmail.com>",
+  "dependencies": {
+    "express": "^4.14.0",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.21",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {},
+  "private": true,
+  "license": "MIT"
+}
