@@ -46,6 +46,24 @@ describe('Db', () => {
 		});
 	});
 
+	it('should update a doc', (done) => {
+		Db.updateOne('tests', {'dummy': 'test'}, 
+			{'$set': {'new': 'prop'}}).then(res => {
+				expect(res.modifiedCount).to.equal(1);
+				done();
+			});
+	});
+
+	it('should update many docs', (done) => {
+		Db.updateMany('tests', {'$or': [
+			{'one': '1'},
+			{'two': '2'}
+		]}, {'$set': {'new': 'prop'}}).then(res => {
+			expect(res.modifiedCount).to.equal(2);
+			done();
+		});
+	});
+
 	it('should delete one doc', (done) => {
 		Db.deleteOne('tests', {'dummy': 'test'}).then(res => {
 			expect(res.deletedCount).to.equal(1);
