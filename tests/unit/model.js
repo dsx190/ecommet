@@ -51,6 +51,26 @@ describe('Model', () => {
 		});
 	});
 
+	it('should find an instance in the db', (done) => {
+		instance.collectionName = 'tests';
+		instance.save().then(id => {
+			Model.findOne({'_id': id}).then(inst => {
+				expect(inst).to.be.an.instanceOf(Model);
+				done();
+			});
+		});
+	});
+
+	it('should find instances in the db', (done) => {
+		instance.collectionName = 'tests';
+		instance.save().then(id => {
+			Model.find({'_id': id}).then(arr => {
+				expect(arr[0]).to.be.an.instanceOf(Model);
+				done();
+			});
+		});
+	});
+
 	it('should update an instance in the db', (done) => {
 		instance.collectionName = 'tests';
 		instance.save().then(id => {

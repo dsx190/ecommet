@@ -2,10 +2,16 @@
 	"db": {
 		"host": "mongodb://localhost:27017/ecommet"
 	},
+	"models": {},
 	"log": {
 		"file": "system.log"
 	},
 	"server": {
 		"port": 3000
+	},
+	"session": {
+		"secret": "dummy",
+		"resave": false,
+		"saveUninitialized": false
 	}
 }
