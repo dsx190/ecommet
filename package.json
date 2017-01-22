@@ -14,7 +14,13 @@
     "mongodb": "^2.2.21",
     "pug": "^2.0.0-beta6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0"
+  },
   "private": true,
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha tests/unit/**.js"
+  }
 }
