@@ -2,8 +2,10 @@
 
 const express = require('express'),
 	router = express.Router(),
-	cms = require('./cms');
+	cms = require('./cms'),
+	customer = require('./customer');
 
 router.use('/', cms);
+router.use('/customers', customer);
 
 module.exports = router;

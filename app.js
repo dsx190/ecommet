@@ -1,6 +1,9 @@
 'use strict';
 
 const express = require('express'),
+	session = require('express-session'),
+	passport = require('passport'),
+	auth = require('./lib/util/auth'),
 	Config = require('./config'),
 	port = Config.get('server.port'),
 	routes = require('./routes'),
@@ -8,6 +11,14 @@ const express = require('express'),
 	Customer = require('./lib/models/customer/customer');
 
 app.use(express.static('public'));
+
+// Session
+app.use(session(Config.get('session')));
+
+// Passport
+auth(passport); // strategies and serializations
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use(routes);
