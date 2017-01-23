@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('../../lib/models/core/log');
+const log = require('../../lib/util/log');
 
 describe('Log', () => {
 
