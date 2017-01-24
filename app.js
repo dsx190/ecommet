@@ -2,6 +2,7 @@
 
 const express = require('express'),
 	session = require('express-session'),
+	bodyParser = require('body-parser'),
 	passport = require('passport'),
 	auth = require('./lib/util/auth'),
 	Config = require('./config'),
@@ -11,6 +12,8 @@ const express = require('express'),
 	Customer = require('./lib/models/customer/customer');
 
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Session
 app.use(session(Config.get('session')));
