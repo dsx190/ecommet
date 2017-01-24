@@ -9,33 +9,33 @@ describe('Model', () => {
 	let instance;
 
 	beforeEach(() => {
-		instance = new Model({'dummy': 'test'});
+		instance = new Model({'dummy': 'test'}, 'tests');
 	});
 
 	afterEach((done) => {
 		Db.deleteMany('tests', {}).then(res => done());
 	});
 
-	it('should create a new instance', () => {
+	it('constructor should return a new instance', () => {
 		expect(instance).to.be.an('object');
 		expect(instance.data).to.eql({'dummy': 'test'});
 	});
 
-	it('should get a property from the instance', () => {
+	it('get should return a property from the instance', () => {
 		expect(instance.get('dummy')).to.equal('test');
 	});
 
-	it('should set one property from the instance', () => {
+	it('set should establish one property from the instance', () => {
 		instance.set('dummy', 'x');
 		expect(instance.get('dummy')).to.equal('x');
 	});
 
-	it('should set the entire data to the instance', () => {
+	it('set should establish the entire data to the instance', () => {
 		instance.set({'a': 1});
 		expect(instance.get('a')).to.equal(1);
 	});
 
-	it('should fail setting _id to the instance', () => {
+	it('set should fail setting _id to the instance', () => {
 		try {
 			instance.set('_id', 1);
 		} catch (error) {
@@ -43,28 +43,25 @@ describe('Model', () => {
 		}
 	});
 
-	it('should create a new instance in the db', (done) => {
-		instance.collectionName = 'tests';
+	it('save should create a new instance in the db', (done) => {
 		instance.save().then(id => {
 			expect(id).to.equal(instance.get('_id'));
 			done();
 		});
 	});
 
-	it('should find an instance in the db', (done) => {
-		instance.collectionName = 'tests';
+	it('find should return an instance', (done) => {
 		instance.save().then(id => {
-			Model.findOne({'_id': id}).then(inst => {
+			Model.find(id).then(inst => {
 				expect(inst).to.be.an.instanceOf(Model);
 				done();
 			});
 		});
 	});
 
-	it('should find instances in the db', (done) => {
-		instance.collectionName = 'tests';
+	it('find should return multiple instances', (done) => {
 		instance.save().then(id => {
-			Model.find({'_id': id}).then(arr => {
+			Model.where({'_id': id}).then(arr => {
 				expect(arr[0]).to.be.an.instanceOf(Model);
 				done();
 			});
@@ -72,23 +69,55 @@ describe('Model', () => {
 	});
 
 	it('should update an instance in the db', (done) => {
-		instance.collectionName = 'tests';
 		instance.save().then(id => {
 			instance.set('new', 'property');
 			instance.save().then(id => {
 				expect(id).to.equal(instance.get('_id'));
+				expect(instance.get('new')).to.equal('property');
 				done();
 			});
 		});
 	});
 
 	it('should delete the instance from the db', (done) => {
-		instance.collectionName = 'tests';
 		instance.save().then(id => {
 			instance.delete().then(res => {
 				expect(res.deletedCount).to.equal(1);
 				done();
 			});
+		});
+	});
+
+	it('should delete the instance using a static method', (done) => {
+		instance.save().then(id => {
+			Model.delete({'_id': id}).then(res => {
+				expect(res.deletedCount).to.equal(1);
+				done();
+			});
+		});
+	});
+
+	it('getCollectionName should return a string', () => {
+		expect(Model.collectionName).to.be.a('string');
+	});
+
+	it('create should insert one doc and return an instance', (done) => {
+		Model.create({
+			'dummy': 'test'
+		}).then(instance => {
+			expect(instance).to.be.an.instanceOf(Model);
+			done();
+		});
+	});
+
+	it('create should insert multiple docs and return an array of instances', (done) => {
+		Model.create([
+			{'one': 1},
+			{'two': 2}
+		]).then(instances => {
+			expect(instances.length).to.equal(2);
+			expect(instances[0]).to.be.an.instanceOf(Model);
+			done();
 		});
 	});
 });
