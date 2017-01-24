@@ -75,8 +75,8 @@ describe('Model', () => {
 		instance.collectionName = 'tests';
 		instance.save().then(id => {
 			instance.set('new', 'property');
-			instance.save().then(res => {
-				expect(res.modifiedCount).to.equal(1);
+			instance.save().then(id => {
+				expect(id).to.equal(instance.get('_id'));
 				done();
 			});
 		});
