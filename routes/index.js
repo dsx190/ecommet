@@ -6,6 +6,6 @@ const express = require('express'),
 	customer = require('./customer');
 
 router.use('/', cms);
-router.use('/customers', customer);
+router.use('/customer', customer);
 
 module.exports = router;
