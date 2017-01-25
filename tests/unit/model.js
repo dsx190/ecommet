@@ -25,6 +25,12 @@ describe('Model', () => {
 		expect(instance.get('dummy')).to.equal('test');
 	});
 
+	it('get id shortcut should return _id', () => {
+		expect(instance.id).to.be.undefined;
+		instance.data._id = 1;
+		expect(instance.id).to.equal(1);
+	});
+
 	it('set should establish one property from the instance', () => {
 		instance.set('dummy', 'x');
 		expect(instance.get('dummy')).to.equal('x');
@@ -45,7 +51,7 @@ describe('Model', () => {
 
 	it('save should create a new instance in the db', (done) => {
 		instance.save().then(id => {
-			expect(id).to.equal(instance.get('_id'));
+			expect(id).to.equal(instance.id);
 			done();
 		});
 	});
@@ -72,7 +78,7 @@ describe('Model', () => {
 		instance.save().then(id => {
 			instance.set('new', 'property');
 			instance.save().then(id => {
-				expect(id).to.equal(instance.get('_id'));
+				expect(id).to.equal(instance.id);
 				expect(instance.get('new')).to.equal('property');
 				done();
 			});
