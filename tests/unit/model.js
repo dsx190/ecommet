@@ -61,7 +61,7 @@ describe('Model', () => {
 
 	it('find should return multiple instances', (done) => {
 		instance.save().then(id => {
-			Model.where({'_id': id}).then(arr => {
+			Model.where({'_id': id}, true).then(arr => {
 				expect(arr[0]).to.be.an.instanceOf(Model);
 				done();
 			});

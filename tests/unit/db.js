@@ -39,10 +39,12 @@ describe('Db', () => {
 	});
 
 	it('should find docs', (done) => {
-		Db.find('tests', {'dummy': 'test'}).then(docs => {
-			expect(docs[0]).to.be.an('object');
-			expect(docs[0].dummy).to.equal('test');
-			done();
+		Db.find('tests', {'dummy': 'test'}).then(cursor => {
+			cursor.toArray((err, docs) => {
+				expect(docs[0]).to.be.an('object');
+				expect(docs[0].dummy).to.equal('test');
+				done();
+			});
 		});
 	});
 
