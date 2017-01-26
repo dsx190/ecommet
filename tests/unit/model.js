@@ -88,7 +88,7 @@ describe('Model', () => {
 	it('should delete the instance from the db', (done) => {
 		instance.save().then(id => {
 			instance.delete().then(res => {
-				expect(res.deletedCount).to.equal(1);
+				expect(res).to.equal(1);
 				done();
 			});
 		});
@@ -96,8 +96,8 @@ describe('Model', () => {
 
 	it('should delete the instance using a static method', (done) => {
 		instance.save().then(id => {
-			Model.delete({'_id': id}).then(res => {
-				expect(res.deletedCount).to.equal(1);
+			Model.delete(id).then(res => {
+				expect(res).to.equal(1);
 				done();
 			});
 		});

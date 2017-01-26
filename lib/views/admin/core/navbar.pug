@@ -12,21 +12,21 @@ nav.navbar.navbar-default.navbar-fixed-top
 				li.dropdown
 					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Sales
 					ul.dropdown-menu
-						li: a(href='#') Orders
-						li: a(href='#') Invoices
-						li: a(href='#') Shipments
+						li: a(href=`${url}/admin/sales/orders`) Orders
+						li: a(href=`${url}/admin/sales/invoices`) Invoices
+						li: a(href=`${url}/admin/sales/shipments`) Shipments
 				li.dropdown
 					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Catalog
 					ul.dropdown-menu
-						li: a(href='#') Attributes
-						li: a(href='#') Attribute Sets
-						li: a(href='$') Categories
-						li: a(href='#') Products
-				li: a(href='#') Customers
+						li: a(href=`${url}/admin/catalog/attributes`) Attributes
+						li: a(href=`${url}/admin/catalog/attributeSets`) Attribute Sets
+						li: a(href=`${url}/admin/catalog/categories`) Categories
+						li: a(href=`${url}/admin/catalog/products`) Products
+				li: a(href=`${url}/admin/customers`) Customers
 				li.dropdown
 					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Users
 					ul.dropdown-menu
-						li: a(href='#') Users
-						li: a(href='#') Roles
+						li: a(href=`${url}/admin/users`) Users
+						li: a(href=`${url}/admin/roles`) Roles
 			ul.nav.navbar-nav.navbar-right
-				li: a(href=`/admin/logout`) Logout
+				li: a(href=`${url}/admin/logout`) Logout

@@ -2,18 +2,17 @@
 
 const express = require('express'),
 	router = express.Router(),
-	Config = require('../config'),
+	// Middleware
+	setLocals = require('./middleware').setLocals,
+	// Routers
 	admin = require('./admin/index'),
 	cms = require('./cms'),
 	customer = require('./customer');
 
 /**
- * Set locals data to be used almost everywhere.
+ * Set common locals.
  */
-router.use((req, res, next) => {
-	res.locals.url = Config.get('server.url');
-	next();
-});
+router.use(setLocals);
 
 router.use('/', cms);
 router.use('/admin', admin);

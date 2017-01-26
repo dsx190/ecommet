@@ -10,7 +10,6 @@
   "author": "David Salas <dsx190@gmail.com>",
   "dependencies": {
     "body-parser": "^1.16.0",
-    "connect-ensure-login": "^0.1.1",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "lodash": "^4.17.4",
