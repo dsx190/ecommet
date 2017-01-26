@@ -30,11 +30,8 @@ router.get('/dashboard', auth, controller.dashboard);
 /**
  * App specific routes.
  */
-router.all('/sales/*', auth);
-router.use('/sales', sales);
-router.all('/customers/*', auth);
-router.use('/customers', customer);
-router.all('/catalog/*', auth);
-router.use('/catalog', catalog);
+router.use('/sales', auth, sales);
+router.use('/customers', auth, customer);
+router.use('/catalog', auth, catalog);
 
 module.exports = router;

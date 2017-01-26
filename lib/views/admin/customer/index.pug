@@ -1,4 +1,28 @@
 extends ../core/layout.pug
 
 block content
-	h1 Customers index !!
+	a(class='btn btn-primary pull-right' href=`${url}/admin/customers/create`) Create
+	h1 Customers
+
+	div(class='data-grid' id='customers-grid' data-src=`${url}/admin/customers/grid`)
+
+	table.table.table-bordered.table-striped
+		thead
+			tr
+				th Email
+				th First name
+				th Last name
+				th Birthdate
+				th Gender
+				th Action
+			tr
+		tbody
+			each doc in docs
+				tr
+					td= doc.email
+					td= doc.firstName
+					td= doc.lastName
+					td= doc.dob
+					td= doc.gender
+					td: a(href=`${url}/admin/customers/edit/${doc._id}`) Edit
+
