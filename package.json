@@ -26,6 +26,6 @@
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha tests/unit/**.js"
+    "test": "mocha test/unit/**.js"
   }
 }
