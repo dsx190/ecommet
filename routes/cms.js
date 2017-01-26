@@ -2,8 +2,7 @@
 
 const express = require('express'),
 	router = express.Router(),
-	CmsController = require('../lib/controllers/cms'),
-	controller = new CmsController();
+	controller = require('../lib/controllers/cms');
 
 router.get('/', controller.home);
 

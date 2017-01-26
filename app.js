@@ -11,6 +11,8 @@ const express = require('express'),
 	app = express(),
 	Customer = require('./lib/models/customer/customer');
 
+app.set('views', './lib/views');
+app.set('view engine', 'pug');
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

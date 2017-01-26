@@ -1,0 +1,32 @@
+nav.navbar.navbar-default.navbar-fixed-top
+	.container
+		.navbar-header
+			button(type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-ecommet-collapse')
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+			a(href='#' class='navbar-brand') Ecommet Admin
+		.collapse.navbar-collapse.navbar-ecommet-collapse
+			ul.nav.navbar-nav
+				li.dropdown
+					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Sales
+					ul.dropdown-menu
+						li: a(href='#') Orders
+						li: a(href='#') Invoices
+						li: a(href='#') Shipments
+				li.dropdown
+					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Catalog
+					ul.dropdown-menu
+						li: a(href='#') Attributes
+						li: a(href='#') Attribute Sets
+						li: a(href='$') Categories
+						li: a(href='#') Products
+				li: a(href='#') Customers
+				li.dropdown
+					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Users
+					ul.dropdown-menu
+						li: a(href='#') Users
+						li: a(href='#') Roles
+			ul.nav.navbar-nav.navbar-right
+				li: a(href=`/admin/logout`) Logout

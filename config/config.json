@@ -3,13 +3,15 @@
 		"host": "mongodb://localhost:27017/ecommet"
 	},
 	"models": {
+		"admins": "../admin/admin",
 		"customers": "../customer/customer"
 	},
 	"log": {
 		"file": "system.log"
 	},
 	"server": {
-		"port": 3000
+		"port": 3000,
+		"url": "http://localhost:3000"
 	},
 	"session": {
 		"secret": "dummy",

@@ -2,8 +2,7 @@
 
 const express = require('express'),
 	router = express.Router(),
-	CustomerController = require('../lib/controllers/customer'),
-	controller = new CustomerController(),
+	controller = require('../lib/controllers/customer'),
 	ensureAuthenticated = require('connect-ensure-login').ensureAuthenticated,
 	passport = require('passport');
 
