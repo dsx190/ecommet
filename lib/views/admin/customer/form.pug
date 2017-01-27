@@ -8,19 +8,19 @@ block content
 		.form-group
 			label(for='email' class='col-sm-2 control-label') Email
 			.col-sm-10
-				input(type='email' class='form-control' name='email' id='email' value='test@gmail.com' required='required')
+				input(type='email' class='form-control' name='email' id='email' value=`${customer.email || ''}` required='required')
 		.form-group
 			label(for='firstName' class='col-sm-2 control-label') First name
 			.col-sm-10
-				input(type='text' class='form-control' name='firstName' id='firstName' value='Test' required='required')
+				input(type='text' class='form-control' name='firstName' id='firstName' value=`${customer.firstName || ''}` required='required')
 		.form-group
 			label(for='lastName' class='col-sm-2 control-label') Last name
 			.col-sm-10
-				input(type='text' class='form-control' name='lastName' id='lastName' value='Customer' required='required')
+				input(type='text' class='form-control' name='lastName' id='lastName' value=`${customer.lastName || ''}` required='required')
 		.form-group
 			label(for='dob' class='col-sm-2 control-label') Birthdate
 			.col-sm-10
-				input(type='date' class='form-control' name='dob' id='dob' value='2017-01-01' required='required')
+				input(type='date' class='form-control' name='dob' id='dob' value=`${customer.dob || ''}` required='required')
 		.form-group
 			label(for='gender' class='col-sm-2 control-label') Gender
 			.col-sm-10
@@ -30,7 +30,7 @@ block content
 		.form-group
 			label(for='password' class='col-sm-2 control-label') Password
 			.col-sm-10
-				input(type='password' class='form-control' name='password' id='password' value='jajaja')
+				input(type='password' class='form-control' name='password' id='password')
 		.form-group
 			.col-sm-10.col-sm-offset-2
 				button(type='submit' class='btn btn-primary') Submit

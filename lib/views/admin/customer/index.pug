@@ -4,9 +4,7 @@ block content
 	a(class='btn btn-primary pull-right' href=`${url}/admin/customers/create`) Create
 	h1 Customers
 
-	div(class='data-grid' id='customers-grid' data-src=`${url}/admin/customers/grid`)
-
-	table.table.table-bordered.table-striped
+	table.table.table-hover.table-striped
 		thead
 			tr
 				th Email
@@ -14,7 +12,8 @@ block content
 				th Last name
 				th Birthdate
 				th Gender
-				th Action
+				th
+				th
 			tr
 		tbody
 			each doc in docs
@@ -25,4 +24,5 @@ block content
 					td= doc.dob
 					td= doc.gender
 					td: a(href=`${url}/admin/customers/edit/${doc._id}`) Edit
+					td: a(href=`${url}/admin/customers/delete/${doc._id}`) Delete
 
