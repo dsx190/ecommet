@@ -1,19 +1,20 @@
 extends ../core/layout.pug
 
 block content
+	include ../core/mixins.pug
 	a(class='btn btn-primary pull-right' href=`${url}/admin/customers/create`) Create
-	h1 Customers
+	h1 Customers 
 
-	table.table.table-hover.table-striped
+	table.table.table-hover.table-striped.table-bordered#customers-table
 		thead
 			tr
-				th Email
-				th First name
-				th Last name
-				th Birthdate
-				th Gender
+				+text-header('email', 'Email')
+				+text-header('firstName', 'First name')
+				+text-header('lastName', 'Last name')
+				+text-header('dob', 'Birthdate')
+				+select-header('gender', 'Gender', ['M', 'F'])
 				th
-				th
+				th: button(class='btn btn-primary' data-action='search') Search
 			tr
 		tbody
 			each doc in docs
@@ -26,3 +27,67 @@ block content
 					td: a(href=`${url}/admin/customers/edit/${doc._id}`) Edit
 					td: a(href=`${url}/admin/customers/delete/${doc._id}`) Delete
 
+	+paginator
+
+block scripts
+	script.
+		jQuery(document).ready(() => {
+			var url = '/admin/customers?p=1', // TBD
+				sorted, sortBy, sortDir,
+				appendSorts = (by, dir) => { // Shortcut
+					url += `&sortBy=${by}&sortDir=${dir}`;
+				},
+				search = () => {
+					/**
+					 * Add search filters to the URL.
+					 */
+					jQuery('table thead th input, table thead th select').each((index, el) => {
+						el = jQuery(el);
+						if (el.val()) {
+							url += `&${el.data('filter')}=${el.val()}`;
+						}
+					});
+					/**
+					 * Add sort data to the URL.
+					 */
+					if (sorted && sortDir) {
+						appendSorts(sortBy, sortDir);
+					} else if (!sorted) {
+						jQuery('table thead th').each((index, el) => {
+							el = jQuery(el);
+							if (el.data('sort-dir')) {
+								appendSorts(el.data('sort-by'), el.data('sort-dir'));
+							}
+						});
+					}
+					//console.log(url);
+					window.location.href = url;
+				};
+			/**
+			 * Update sort data and call search when clicking on a table header.
+			 */
+			jQuery('table thead th').on('click', e => {
+				// Exit when clicking on input or select.
+				if (e.target.tagName === 'LABEL') {
+					let el = jQuery(e.currentTarget),
+						prevDir = el.data('sort-dir');
+					sortBy = el.data('sort-by');
+					if (prevDir && prevDir == 1) {
+						sortDir = -1;
+					} else if (!prevDir) {
+						sortDir = 1;
+					} // If prevDir was -1, sortDir will remain undefined.
+					sorted = true;
+					search();
+				}
+			});
+			/**
+			 * Execute search when changing select values,
+			 * clicking the search button or pressing enter on input fields.
+			 */
+			jQuery('table thead th select').on('change', search);
+			jQuery('table button[data-action="search"]').on('click',search);
+			jQuery('table thead th input').on('keypress', e => {
+				if (e.keyCode == 13) search();
+			});
+		});

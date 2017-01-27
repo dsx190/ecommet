@@ -23,7 +23,7 @@ router.use(identify);
 router.get('/login', controller.login);
 router.post('/login', passport.authenticate('local', {
 	failureRedirect: '/admin/login',
-	successRedirect: '/admin/dashboard'
+	successRedirect: '/admin/customers'
 }));
 router.get('/dashboard', auth, controller.dashboard);
 
