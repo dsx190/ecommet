@@ -1,0 +1,46 @@
+//-
+	Sortable, filterable text headers on tables.
+	
+mixin text-header(key, label)
+	th(data-sort-by=key)&attributes(pag.sortBy === key? {'data-sort-dir': pag.sortDir}: {})
+		label= label 
+			if pag.sortBy === key
+				if pag.sortDir == 1
+					i.fa.fa-chevron-up
+				else if pag.sortDir == -1
+					i.fa.fa-chevron-down
+		input(type='text' class='form-control' value=`${pag.filters[key] || ''}` data-filter=key)
+
+//-
+	Sortable, filterable select headers on tables.
+
+mixin select-header(key, label, options)
+	th(data-sort-by=key)&attributes(pag.sortBy === key? {'data-sort-dir': pag.sortDir}: {})
+		label= label
+		select(class='form-control' data-filter=key)
+			option()
+			each opt in options
+				option(value=opt, selected=(pag.filters[key] === opt))= opt
+
+//-
+	Pagination controls, reset and search buttons
+	
+mixin toolbar()
+	.row-fluid
+		span Page 
+		span 
+			button(class='btn btn-link' data-action='page' data-next='0' disabled=(pag.currentPage == 1))
+				i.fa.fa-chevron-left
+		input(type='text' data-action='page' value=pag.currentPage)
+		span
+			button(class='btn btn-link' data-action='page' data-next='1' disabled=(pag.currentPage === pag.totalPages))
+				i.fa.fa-chevron-right
+		span of #{pag.totalPages} pages. Found #{pag.totalDocs} records.
+		div(class='btn-group pull-right' role='group')
+			button(class='btn btn-link' data-action='reset') 
+				i.fa.fa-fw.fa-eraser
+				| Reset
+			button(class='btn btn-link' data-action='search')
+				i.fa.fa-fw.fa-search
+				| Search
+			
