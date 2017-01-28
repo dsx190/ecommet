@@ -1,0 +1,17 @@
+extends ../core/layout.pug
+
+block content
+
+	include ../../mixins/horizontal-form.pug
+	
+	+form(`${url}/admin/customers/${customerId}/address/${doc._id}`)
+		+legend('Customer address form')
+		+text-field('name', 'Name')
+		+text-field('street', 'Street')
+		+text-field('area', 'Area')
+		+text-field('city', 'City')
+		+text-field('state', 'State')
+		+text-field('country', 'Country')
+		+text-field('zipCode', 'Zip Code')
+		+text-field('telephone', 'Telephone')
+		+submit

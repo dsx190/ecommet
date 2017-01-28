@@ -2,14 +2,68 @@ extends ../core/layout.pug
 
 block content
 
+	include ../../mixins/data-grid.pug
 	include ../../mixins/horizontal-form.pug
 
-	+form(`${url}/admin/customers/save/${doc.id || ''}`)
-		+legend('Customer edit form')
-		+email-field('email', 'Email')
-		+text-field('firstName', 'First name')
-		+text-field('lastName', 'Last name')
-		+date-field('dob', 'Birthdate')
-		+select-field('gender', 'Gender', ['M', 'F'])
-		+password-field('password', 'Password', true)
-		+submit
+	h1 Editing customer 
+
+	ul.nav.nav-tabs(role='tablist')
+		li.active(role='presentation')
+			a(href='#general' aria-controls='general' role='tab' data-toggle='tab') General
+		if doc._id
+			li(role='presentation')
+				a(href='#addresses' aria-controls='addresses' role='tab' data-toggle='tab') Addresses
+
+	.tab-content
+		#general.tab-pane.active(role='tabpanel')
+
+			+form(`${url}/admin/customers/save/${doc._id || ''}`)
+				+legend('Customer form')
+				+email-field('email', 'Email')
+				+text-field('firstName', 'First name')
+				+text-field('lastName', 'Last name')
+				+date-field('dob', 'Birthdate')
+				+select-field('gender', 'Gender', ['M', 'F'])
+				+password-field('password', 'Password', true)
+				+submit
+		
+		if doc._id
+			#addresses.tab-pane(role='tabpanel')
+
+				a(class='btn btn-success pull-right' href=`${url}/admin/customers/${doc._id}/address`) New
+
+				script.
+					var baseUrl = `#{url}/admin/customers/edit/#{doc._id}`,
+						page = #{pag.currentPage};
+
+				+toolbar
+
+				table.table.table-hover.table-striped.table-bordered.data-grid
+					thead
+						tr
+							+text-header('name', 'Name')
+							+text-header('street', 'Street')
+							+text-header('area', 'Area')
+							+text-header('city', 'City')
+							+text-header('state', 'State')
+							+text-header('country', 'Country')
+							+text-header('zipCode', 'Zip Code')
+							+text-header('telephone', 'Telephone')
+							th
+						tr
+					tbody
+						each address in docs
+							tr(data-action='edit' data-url=`${url}/admin/customers/${doc._id}/address/${address._id}`)
+								td= address.name
+								td= address.street
+								td= address.area
+								td= address.city
+								td= address.state
+								td= address.country
+								td= address.zipCode
+								td= address.telephone
+								td: a(href=`${url}/admin/customers/${doc._id}/address/delete/${address._id}`) Delete
+
+block scripts
+	if doc._id
+		script(type='text/javascript' src='/js/data-grid.js')
