@@ -1,7 +1,9 @@
 extends ../core/layout.pug
 
 block content
+
 	include ../../mixins/data-grid.pug
+
 	a(class='btn btn-success pull-right' href=`${url}/admin/customers/create`) Create
 	h1 Customers 
 	script.
@@ -31,4 +33,5 @@ block content
 					td: a(href=`${url}/admin/customers/delete/${doc._id}`) Delete
 
 block scripts
+	
 	script(type='text/javascript' src='/js/data-grid.js')

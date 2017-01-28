@@ -1,4 +1,10 @@
 //-
+	Form
+mixin form(action)
+	form.form-horizontal(action=action method='POST')
+		block
+
+//-
 	Legend.
 mixin legend(text)
 	.form-group

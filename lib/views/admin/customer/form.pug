@@ -4,8 +4,7 @@ block content
 
 	include ../../mixins/horizontal-form.pug
 
-	form.form-horizontal(action=`${url}/admin/customers/save/${doc.id || ''}` method='POST')
-		
+	+form(`${url}/admin/customers/save/${doc.id || ''}`)
 		+legend('Customer edit form')
 		+email-field('email', 'Email')
 		+text-field('firstName', 'First name')
