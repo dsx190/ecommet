@@ -2,35 +2,15 @@ extends ../core/layout.pug
 
 block content
 
-	form(action=`${url}/admin/customers/save/${customer.id || ''}` method='POST' class='form-horizontal')
-		.form-group
-			legend Customer edit form
-		.form-group
-			label(for='email' class='col-sm-2 control-label') Email
-			.col-sm-10
-				input(type='email' class='form-control' name='email' id='email' value=`${customer.email || ''}` required='required')
-		.form-group
-			label(for='firstName' class='col-sm-2 control-label') First name
-			.col-sm-10
-				input(type='text' class='form-control' name='firstName' id='firstName' value=`${customer.firstName || ''}` required='required')
-		.form-group
-			label(for='lastName' class='col-sm-2 control-label') Last name
-			.col-sm-10
-				input(type='text' class='form-control' name='lastName' id='lastName' value=`${customer.lastName || ''}` required='required')
-		.form-group
-			label(for='dob' class='col-sm-2 control-label') Birthdate
-			.col-sm-10
-				input(type='date' class='form-control' name='dob' id='dob' value=`${customer.dob || ''}` required='required')
-		.form-group
-			label(for='gender' class='col-sm-2 control-label') Gender
-			.col-sm-10
-				select(class='form-control' name='gender' id='gender')
-					option(value="M") M
-					option(value="F") F
-		.form-group
-			label(for='password' class='col-sm-2 control-label') Password
-			.col-sm-10
-				input(type='password' class='form-control' name='password' id='password')
-		.form-group
-			.col-sm-10.col-sm-offset-2
-				button(type='submit' class='btn btn-primary') Submit
+	include ../../mixins/horizontal-form.pug
+
+	form.form-horizontal(action=`${url}/admin/customers/save/${doc.id || ''}` method='POST')
+		
+		+legend('Customer edit form')
+		+email-field('email', 'Email')
+		+text-field('firstName', 'First name')
+		+text-field('lastName', 'Last name')
+		+date-field('dob', 'Birthdate')
+		+select-field('gender', 'Gender', ['M', 'F'])
+		+password-field('password', 'Password', true)
+		+submit

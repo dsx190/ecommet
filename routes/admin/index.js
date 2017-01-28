@@ -25,6 +25,7 @@ router.post('/login', passport.authenticate('local', {
 	failureRedirect: '/admin/login',
 	successRedirect: '/admin/customers'
 }));
+router.get('/logout', controller.logout);
 router.get('/dashboard', auth, controller.dashboard);
 
 /**

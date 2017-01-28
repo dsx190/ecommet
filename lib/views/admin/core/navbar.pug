@@ -1,22 +1,22 @@
 nav.navbar.navbar-default.navbar-fixed-top
 	.container
 		.navbar-header
-			button(type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-ecommet-collapse')
+			button.navbar-toggle(type='button' data-toggle='collapse' data-target='.navbar-ecommet-collapse')
 				span.sr-only Toggle navigation
 				span.icon-bar
 				span.icon-bar
 				span.icon-bar
-			a(href='#' class='navbar-brand') Ecommet Admin
+			a.navbar-brand(href='#{url}') Ecommet Admin
 		.collapse.navbar-collapse.navbar-ecommet-collapse
 			ul.nav.navbar-nav
 				li.dropdown
-					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Sales
+					a.dropdown-toggle(href='#' data-toggle='dropdown') Sales
 					ul.dropdown-menu
 						li: a(href=`${url}/admin/sales/orders`) Orders
 						li: a(href=`${url}/admin/sales/invoices`) Invoices
 						li: a(href=`${url}/admin/sales/shipments`) Shipments
 				li.dropdown
-					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Catalog
+					a.dropdown-toggle(href='#' data-toggle='dropdown') Catalog
 					ul.dropdown-menu
 						li: a(href=`${url}/admin/catalog/attributes`) Attributes
 						li: a(href=`${url}/admin/catalog/attributeSets`) Attribute Sets
@@ -24,7 +24,7 @@ nav.navbar.navbar-default.navbar-fixed-top
 						li: a(href=`${url}/admin/catalog/products`) Products
 				li: a(href=`${url}/admin/customers`) Customers
 				li.dropdown
-					a(href='#' class='dropdown-toggle' data-toggle='dropdown') Users
+					a.dropdown-toggle(href='#' data-toggle='dropdown') Users
 					ul.dropdown-menu
 						li: a(href=`${url}/admin/users`) Users
 						li: a(href=`${url}/admin/roles`) Roles

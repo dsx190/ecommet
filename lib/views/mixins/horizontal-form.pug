@@ -1,0 +1,50 @@
+//-
+	Legend.
+mixin legend(text)
+	.form-group
+		legend= text
+
+//-
+	Core field mixin.
+mixin field(type, key, label, optional)
+	- doc = doc || {};
+	.form-group
+			label.col-sm-2.control-label(for=key)= label
+			.col-sm-10
+				input.form-control(type=type name=key id=key value=`${doc[key] || ''}` required=!optional)
+
+//-
+	Text input group.
+mixin text-field(key, label, optional)
+	+field('text', key, label, optional)
+
+//-
+	Text input group.
+mixin email-field(key, label, optional)
+	+field('email', key, label, optional)
+
+//-
+	Date input group.
+mixin date-field(key, label, optional)
+	+field('date', key, label, optional)
+
+//-
+	Date input group.
+mixin password-field(key, label, optional)
+	+field('password', key, label, optional)
+
+//-
+	Select input group.
+mixin select-field(key, label, options, optional)
+	- doc = doc || {};
+	.form-group
+		label.col-sm-2.control-label(for=key)= label
+		.col-sm-10
+			select.form-control(name=key id=key, required=!optional)
+				each opt in options
+					option(value=opt, selected=(doc[key] === opt))= opt
+
+mixin submit()
+	.form-group
+		.col-sm-10.col-sm-offset-2
+			button.btn.btn-primary(type='submit') Submit
