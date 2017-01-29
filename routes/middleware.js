@@ -1,6 +1,7 @@
 'use strict';
 
 const Customer = require('../lib/models/customer/customer'),
+	flash = require('../lib/util/flash'),
 	Config = require('../config');
 
 /**
@@ -8,6 +9,9 @@ const Customer = require('../lib/models/customer/customer'),
  */
 exports.setLocals = (req, res, next) => {
 	res.locals.url = Config.get('server.url');
+	res.locals.messages = () => {
+		return req.flash();
+	};
 	next();
 };
 

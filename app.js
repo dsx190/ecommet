@@ -4,18 +4,19 @@ const express = require('express'),
 	session = require('express-session'),
 	bodyParser = require('body-parser'),
 	passport = require('passport'),
+	flash = require('connect-flash'),
 	auth = require('./lib/util/auth'),
 	Config = require('./config'),
 	port = Config.get('server.port'),
 	routes = require('./routes'),
-	app = express(),
-	Customer = require('./lib/models/customer/customer');
+	app = express();
 
 app.set('views', './lib/views');
 app.set('view engine', 'pug');
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(flash());
 
 // Session
 app.use(session(Config.get('session')));

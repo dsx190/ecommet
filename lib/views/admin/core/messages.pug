@@ -1,0 +1,8 @@
+each msgs, level in messages()
+	each msg in msgs
+		if level === 'error'
+			.alert.alert-danger
+				=msg
+		else
+			.alert(class=`alert-${level}`)
+				=msg
