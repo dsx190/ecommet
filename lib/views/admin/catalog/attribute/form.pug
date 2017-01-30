@@ -1,0 +1,31 @@
+extends ../../core/layout.pug
+
+block content
+
+	include ../../../mixins/horizontal-form.pug
+
+	if doc._id
+		h1 Editing attribute #{doc.code}
+	else
+		h1 New attribute
+
+	+form(`${url}/admin/catalog/attributes/save/${doc._id || ''}`)
+		+text-field('code', 'Code')
+		+text-field('label', 'Label')
+		+select-field('inputType', 'Input type', {
+			'text': 'Text', 
+			'textarea': 'Text Area',
+			'date': 'Date',
+			'select': 'Select',
+			'multiselect': 'Multiselect',
+			'yesno': 'Yes/No',
+			'price': 'Price',
+			'gallery': 'Image gallery'
+		})
+		+text-field('defaultValue', 'Default value', true)
+		+yesno-field('isRequired', 'Required')
+		+yesno-field('isUnique', 'Unique')
+		+yesno-field('isFilter', 'Filter')
+		+yesno-field('isSorter', 'Sorter')
+		+yesno-field('isSuper', 'Super')
+		+submit

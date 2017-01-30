@@ -5,6 +5,8 @@
 	"models": {
 		"admins": "../admin/admin",
 		"addresses": "../customer/address",
+		"attributes": "../catalog/attribute",
+		"attributeSets": "../catalog/attribute-set",
 		"customers": "../customer/customer"
 	},
 	"log": {

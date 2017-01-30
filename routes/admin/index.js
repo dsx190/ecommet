@@ -32,7 +32,7 @@ router.get('/dashboard', auth, controller.dashboard);
  * App specific routes.
  */
 router.use('/sales', auth, sales);
-router.use('/customers', customer);
-router.use('/catalog', auth, catalog);
+router.use('/customers', /*auth, */customer);
+router.use('/catalog', /*auth, */catalog);
 
 module.exports = router;

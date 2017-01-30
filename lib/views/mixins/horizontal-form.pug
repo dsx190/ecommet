@@ -54,8 +54,26 @@ mixin select-field(key, label, options, optional)
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
 			select.form-control(name=key id=key, required=!optional)
-				each opt in options
-					option(value=opt, selected=(doc[key] === opt))= opt
+				if options.length
+					//- Options is an array
+					each opt in options
+						option(value=opt, selected=(doc[key] === opt))= opt
+				else
+					//- Options is an object {value: label}
+					each optVal, optKey in options
+						option(value=optKey, selected=(doc[key] === optKey))= optVal
+
+
+//-
+	Yes/no select input group.
+mixin yesno-field(key, label, optional)
+	- doc = doc || {};
+	.form-group
+		label.col-sm-2.control-label(for=key)= label
+		.col-sm-10
+			select.form-control(name=key id=key, required=!optional)
+				option(value='true' selected=(doc[key] === true)) Yes
+				option(value='false' selected=(doc[key] === false)) No
 
 mixin submit()
 	.form-group

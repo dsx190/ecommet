@@ -23,6 +23,16 @@ mixin select-header(key, label, options)
 				option(value=opt, selected=(pag.filters[key] === opt))= opt
 
 //-
+	Sortable, filterable yes/no header.
+mixin yesno-header(key, label)
+	th(data-sort-by=key)&attributes(pag.sortBy === key? {'data-sort-dir': pag.sortDir}: {})
+		label= label
+		select.form-control(data-filter=key)
+			option()
+			option(value='true', selected=(pag.filters[key] === true)) Yes
+			option(value='false', selected=(pag.filters[key] === false)) No
+
+//-
 	Pagination controls, reset and search buttons
 	
 mixin toolbar()
