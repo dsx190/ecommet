@@ -1,7 +1,6 @@
 'use strict';
 
 const Customer = require('../lib/models/customer/customer'),
-	flash = require('../lib/util/flash'),
 	Config = require('../config');
 
 /**

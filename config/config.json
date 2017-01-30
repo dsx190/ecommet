@@ -4,6 +4,7 @@
 	},
 	"models": {
 		"admins": "../admin/admin",
+		"addresses": "../customer/address",
 		"customers": "../customer/customer"
 	},
 	"log": {

@@ -17,7 +17,14 @@ mixin field(type, key, label, optional)
 	.form-group
 			label.col-sm-2.control-label(for=key)= label
 			.col-sm-10
-				input.form-control(type=type name=key id=key value=`${doc[key] || ''}` required=!optional)
+				input.form-control(
+					type=type
+					name=key
+					id=key
+					required=!optional
+				)&attributes(
+					key === 'password'? {} : {'value': `${doc[key] || ''}`}
+				)
 
 //-
 	Text input group.

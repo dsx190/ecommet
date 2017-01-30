@@ -5,7 +5,10 @@ block content
 	include ../../mixins/data-grid.pug
 	include ../../mixins/horizontal-form.pug
 
-	h1 Editing customer 
+	if doc._id
+		h1 Editing customer #{doc.email}
+	else
+		h1 New customer
 
 	ul.nav.nav-tabs(role='tablist')
 		li.active(role='presentation')
@@ -24,7 +27,7 @@ block content
 				+text-field('lastName', 'Last name')
 				+date-field('dob', 'Birthdate')
 				+select-field('gender', 'Gender', ['M', 'F'])
-				+password-field('password', 'Password', true)
+				+password-field('password', 'Password', doc._id)
 				+submit
 		
 		if doc._id

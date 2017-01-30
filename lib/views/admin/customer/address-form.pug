@@ -4,7 +4,7 @@ block content
 
 	include ../../mixins/horizontal-form.pug
 	
-	+form(`${url}/admin/customers/${customerId}/address/${doc._id}`)
+	+form(`${url}/admin/customers/${customerId}/address/${doc._id || ''}`)
 		+legend('Customer address form')
 		+text-field('name', 'Name')
 		+text-field('street', 'Street')
