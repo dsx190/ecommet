@@ -81,7 +81,11 @@ block content
 										type='button'
 										onclick=`deleteOption(${key})`)
 										i.fa.fa-remove
-		+submit
+		if doc.isSystem
+			.alert.alert-info
+				p System attributes cannot be modified
+		else
+			+submit
 
 block scripts
 	script(type='text/javascript' src='/js/attributes.js')

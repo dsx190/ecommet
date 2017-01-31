@@ -36,7 +36,9 @@ block content
 						td= doc.isFilter? 'Yes' : 'No'
 						td= doc.isSorter? 'Yes' : 'No'
 						td= doc.isSystem? 'Yes' : 'No'
-						td: a(href=`${url}/admin/catalog/attributes/delete/${doc._id}`) Delete
+						td 
+							if !doc.isSystem
+								a(href=`${url}/admin/catalog/attributes/delete/${doc._id}`) Delete
 
 block scripts
 	

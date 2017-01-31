@@ -43,7 +43,7 @@ mixin toolbar()
 				i.fa.fa-chevron-left
 		input(type='text' data-action='page' value=pag.currentPage)
 		span
-			button.btn.btn-link(data-action='page' data-next='1' disabled=(pag.currentPage === pag.totalPages))
+			button.btn.btn-link(data-action='page' data-next='1' disabled=(pag.currentPage == pag.totalPages))
 				i.fa.fa-chevron-right
 		span of #{pag.totalPages} pages. Found #{pag.totalDocs} records.
 		div.btn-group.pull-right(role='group')
