@@ -9,23 +9,79 @@ block content
 	else
 		h1 New attribute
 
+	- var isOptions = doc.inputType === 'select' || doc.inputType === 'multiselect';
+
+	ul.nav.nav-tabs(role='tablist')
+		li.active(role='presentation')
+			a(href='#general' aria-controls='general' role='tab' data-toggle='tab') General
+		li(role='presentation' id='options-tab' style={'display': (isOptions)? 'block' : 'none'})
+			a(href='#options' aria-controls='options' role='tab' data-toggle='tab') Options
+
 	+form(`${url}/admin/catalog/attributes/save/${doc._id || ''}`)
-		+text-field('code', 'Code')
-		+text-field('label', 'Label')
-		+select-field('inputType', 'Input type', {
-			'text': 'Text', 
-			'textarea': 'Text Area',
-			'date': 'Date',
-			'select': 'Select',
-			'multiselect': 'Multiselect',
-			'yesno': 'Yes/No',
-			'price': 'Price',
-			'gallery': 'Image gallery'
-		})
-		+text-field('defaultValue', 'Default value', true)
-		+yesno-field('isRequired', 'Required')
-		+yesno-field('isUnique', 'Unique')
-		+yesno-field('isFilter', 'Filter')
-		+yesno-field('isSorter', 'Sorter')
-		+yesno-field('isSuper', 'Super')
+		.tab-content
+			#general.tab-pane.active(role='tabpanel')
+				+text-field('code', 'Code')
+				+text-field('label', 'Label')
+				+select-field('inputType', 'Input type', {
+					'text': 'Text', 
+					'textarea': 'Text Area',
+					'date': 'Date',
+					'select': 'Select',
+					'multiselect': 'Multiselect',
+					'yesno': 'Yes/No',
+					'price': 'Price',
+					'gallery': 'Image gallery'
+				})
+				+text-field('defaultValue', 'Default value', true)
+				+yesno-field('isRequired', 'Required values')
+				+yesno-field('isUnique', 'Unique Values')
+				+yesno-field('isUsedForPromo', 'Use in promo rules')
+				.form-group
+					label.col-sm-2.control-label(for='isFilter') Filter
+					.col-sm-10
+						select.form-control(name='isFilter' id='isFilter' required=true disabled=!isOptions)
+							option(value='true' selected=(doc['isFilter'] === true)) Yes
+							option(value='false' selected=(doc['isFilter'] === false)) No
+						span.help-block Means it is used for filtering the catalog (only for use with attributes of type 'Select' and 'Multiselect').
+				.form-group
+					label.col-sm-2.control-label(for='isSorter') Sorter
+					.col-sm-10
+						select.form-control(name='isSorter' id='isSorter' required=true)
+							option(value='true' selected=(doc['isSorter'] === true)) Yes
+							option(value='false' selected=(doc['isSorter'] === false)) No
+						span.help-block Means it is used for sorting the catalog.
+				.form-group
+					label.col-sm-2.control-label(for='isSuper') Super
+					.col-sm-10
+						select.form-control(name='isSuper' id='isSuper' required=true disabled=!isOptions)
+							option(value='true' selected=(doc['isSuper'] === true)) Yes
+							option(value='false' selected=(doc['isSuper'] === false)) No
+						span.help-block Means it is used as a super-child products link i.e: size, flavor (only for use with attributes of type 'Select' and 'Multiselect').
+
+			#options.tab-pane(role='tabpanel')
+				.row
+					br
+					.col-sm-2
+						button.btn.btn-primary.pull-right(data-action='new-option')
+							i.fa.fa-plus.fa-fw 
+							| Add new
+				#option-fields
+					if isOptions
+						each opt, key in doc.options
+							.row(data-option=key)
+								.col-sm-8.col-sm-offset-2
+									input.form-control(
+										type='text'
+										name='options[]'
+										required=true
+										value=opt
+									)
+								.col-sm-2
+									button.btn.btn-danger(
+										type='button'
+										onclick=`deleteOption(${key})`)
+										i.fa.fa-remove
 		+submit
+
+block scripts
+	script(type='text/javascript' src='/js/attributes.js')

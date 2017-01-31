@@ -11,26 +11,27 @@ block content
 			page = #{pag.currentPage};
 
 	+toolbar
-
-	table.table.table-hover.table-striped.table-bordered.data-grid
-		thead
-			tr
-				+text-header('email', 'Email')
-				+text-header('firstName', 'First name')
-				+text-header('lastName', 'Last name')
-				+text-header('dob', 'Birthdate')
-				+select-header('gender', 'Gender', ['M', 'F'])
-				th
-			tr
-		tbody
-			each doc in docs
-				tr(data-action='edit' data-url=`${url}/admin/customers/edit/${doc._id}`)
-					td= doc.email
-					td= doc.firstName
-					td= doc.lastName
-					td= doc.dob
-					td= doc.gender
-					td: a(href=`${url}/admin/customers/delete/${doc._id}`) Delete
+	
+	.table-responsive
+		table.table.table-hover.table-striped.table-bordered.data-grid
+			thead
+				tr
+					+text-header('email', 'Email')
+					+text-header('firstName', 'First name')
+					+text-header('lastName', 'Last name')
+					+text-header('dob', 'Birthdate')
+					+select-header('gender', 'Gender', ['M', 'F'])
+					th
+				tr
+			tbody
+				each doc in docs
+					tr(data-action='edit' data-url=`${url}/admin/customers/edit/${doc._id}`)
+						td= doc.email
+						td= doc.firstName
+						td= doc.lastName
+						td= doc.dob
+						td= doc.gender
+						td: a(href=`${url}/admin/customers/delete/${doc._id}`) Delete
 
 block scripts
 	
