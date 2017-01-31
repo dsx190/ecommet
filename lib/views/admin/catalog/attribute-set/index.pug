@@ -1,4 +1,28 @@
 extends ../../core/layout.pug
 
 block content
-	h1 Attribute sets here !!
+	
+	include ../../../mixins/data-grid.pug
+
+	a.btn.btn-success.pull-right(href=`${url}/admin/catalog/attributeSets/edit`) Create
+	h1 Attribute sets
+	script.
+		var baseUrl = `#{url}/admin/catalog/attributeSets`,
+			page = #{pag.currentPage};
+
+	+toolbar
+
+	.table-responsive
+		table.table.table-hover.table-striped.table-bordered.data-grid
+			thead
+				tr
+					+text-header('name', 'Name')
+					th
+			tbody
+				each doc in docs
+					tr(data-action='edit' data-url=`${url}/admin/catalog/attributeSets/edit/${doc._id}`)
+						td= doc.name
+						td: a(href=`${url}/admin/catalog/attributeSets/delete/${doc._id}`) Delete
+block scripts
+
+	script(type='text/javascript' src='/js/data-grid.js')
