@@ -75,6 +75,15 @@ mixin yesno-field(key, label, optional)
 				option(value='true' selected=(doc[key] === true)) Yes
 				option(value='false' selected=(doc[key] === false)) No
 
+//-
+	Textarea input field.
+mixin textarea(key, label, optional)
+	- doc = doc || {};
+	.form-group
+		label.col-sm-2.control-label(for=key)= label
+		.col-sm-10
+			textarea.form-control(id=key name=key required=!optional)
+
 mixin submit()
 	.form-group
 		.col-sm-10.col-sm-offset-2

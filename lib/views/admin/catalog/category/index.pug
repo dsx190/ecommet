@@ -1,0 +1,21 @@
+extends ../../core/layout.pug
+
+block content
+
+	include ../../../mixins/category-tree.pug
+
+	a.btn.btn-success.pull-right(href=`${url}/admin/catalog/categories/create`) 
+		i.fa.fa-plus.fa-fw
+		| Root category
+	h1 Categories
+
+	- var baseUrl = `${url}/admin/catalog/categories`;
+
+	if tree
+		.panel-group#accordion-0(role='tablist' aria-multiselectable='true')
+			each category in tree
+				+branch(category)
+
+	else 
+		.alert.alert-info
+			p No categories are defined.

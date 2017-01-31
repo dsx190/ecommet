@@ -3,7 +3,8 @@
 const express = require('express'),
 	router = express.Router(),
 	attributeCtrl = require('../../lib/controllers/admin/attribute'),
-	attributeSetCtrl = require('../../lib/controllers/admin/attribute-set');
+	attributeSetCtrl = require('../../lib/controllers/admin/attribute-set'),
+	categoryCtrl = require('../../lib/controllers/admin/category');
 
 router.get('/attributes/', attributeCtrl.index);
 router.get('/attributes/edit/:id?', attributeCtrl.edit);
@@ -14,5 +15,12 @@ router.get('/attributeSets/', attributeSetCtrl.index);
 router.get('/attributeSets/edit/:id?', attributeSetCtrl.edit);
 router.post('/attributeSets/save/:id?', attributeSetCtrl.save);
 router.get('/attributeSets/delete/:id', attributeSetCtrl.delete);
+
+router.get('/categories/', categoryCtrl.index);
+router.get('/categories/create/:parentId?', categoryCtrl.create);
+router.post('/categories/store/:parentId?', categoryCtrl.store);
+router.get('/categories/edit/:id', categoryCtrl.edit);
+router.post('/categories/update/:id?', categoryCtrl.update);
+router.get('/categories/delete/:id', categoryCtrl.delete);
 
 module.exports = router;

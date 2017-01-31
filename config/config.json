@@ -7,6 +7,7 @@
 		"addresses": "../customer/address",
 		"attributes": "../catalog/attribute",
 		"attributeSets": "../catalog/attribute-set",
+		"categories": "../catalog/category",
 		"customers": "../customer/customer"
 	},
 	"log": {

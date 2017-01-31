@@ -1,0 +1,33 @@
+extends ../../core/layout.pug
+
+block content
+
+	include ../../../mixins/horizontal-form.pug
+
+	- var action = `${url}/admin/catalog/categories/`; 
+	if doc._id
+		- action += `update/${doc._id}`
+		h1 Editing category #{doc.name}
+	else if parent
+		- action += `store/${parent._id}`
+		h1 New subcategory for #{parent.name}
+	else
+		- action += `store`
+		h1 New root category
+
+	+form(action)
+		+text-field('name', 'Name')
+		+text-field('key', 'Key')
+		+yesno-field('enabled', 'Enabled')
+		+text-field('metaTitle', 'Meta Title', true)
+		+text-field('metaKeywords', 'Meta Keywords', true)
+		+textarea('metaDescription', 'Meta Description', true)
+		+select-field('metaRobots', 'Meta Robots', [
+			'',
+			'INDEX,FOLLOW',
+			'INDEX.NOFOLLOW',
+			'NOINDEX,FOLLOW',
+			'NOINDEX,NOFOLLOW'
+		], true)
+		+submit
+

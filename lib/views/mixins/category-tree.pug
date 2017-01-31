@@ -1,0 +1,27 @@
+//-
+	Renders the category tree branches recursively.
+mixin branch(leaf)
+	.panel.panel.default
+		.panel-heading(role='tab' id=`heading-${leaf._id}`)
+			h4.panel-title
+				a(role='button' data-toggle='collapse' data-parent=`#accordion-${leaf.parentId || '0'}` href=`#collapse-${leaf._id}` aria-expanded='true' aria-controls=`collapse-${leaf._id}`)
+					i.fa.fa-chevron-right
+				=leaf.name
+				.dropdown.pull-right
+					button.btn.btn-link(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+						| Options 
+						i.fa.fa-chevron-down
+					ul.dropdown-menu
+						li: a(href=`${baseUrl}/edit/${leaf._id}`) Edit
+						li: a(href=`${baseUrl}/create/${leaf._id}`) Create child category
+						li.divider(role='separator')
+						li: a(href=`${baseUrl}/delete/${leaf._id}`) Delete
+
+		.panel-collapse.collapse(role='tabpanel' aria-labelledby=`heading-${leaf._id}` id=`collapse-${leaf._id}` class=`${leaf.parentId === null? 'in' : ''}`)
+			.panel-body
+				if leaf.leaves
+					.panel-group(id=`accordion-${leaf._id}`)
+						each child in leaf.leaves
+							+branch(child)
+				else
+					p No subcategories for #{leaf.name}
