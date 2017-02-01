@@ -4,42 +4,36 @@ block content
 
 	include ../../../mixins/data-grid.pug
 
-	a(class='btn btn-success pull-right' href=`${url}/admin/catalog/attributes/edit`) Create
+	+create-btn(`${url}/admin/catalog/attributes/edit`)
+
 	h1 Attributes 
-	script.
-		var baseUrl = `#{url}/admin/catalog/attributes`,
-			page = #{pag.currentPage};
 
-	+toolbar
-
-	.table-responsive
-		table.table.table-hover.table-striped.table-bordered.data-grid
-			thead
-				tr
-					+text-header('code', 'Code')
-					+text-header('label', 'Label')
-					+yesno-header('isRequired', 'Required')
-					+yesno-header('isUsedForPromo', 'In promo rules')
-					+yesno-header('isFilter', 'Filter')
-					+yesno-header('isSorter', 'Sorter')
-					+yesno-header('isSystem', 'System')
-					
-					th
-				tr
-			tbody
-				each doc in docs
-					tr(data-action='edit' data-url=`${url}/admin/catalog/attributes/edit/${doc._id}`)
-						td= doc.code
-						td= doc.label
-						td= doc.isRequired? 'Yes' : 'No'
-						td= doc.isUsedInPromo? 'Yes' : 'No'
-						td= doc.isFilter? 'Yes' : 'No'
-						td= doc.isSorter? 'Yes' : 'No'
-						td= doc.isSystem? 'Yes' : 'No'
-						td 
-							if !doc.isSystem
-								a(href=`${url}/admin/catalog/attributes/delete/${doc._id}`) Delete
+	+table('admin/catalog/attributes')
+		thead
+			tr
+				+text-header('code', 'Code')
+				+text-header('label', 'Label')
+				+yesno-header('isRequired', 'Required')
+				+yesno-header('isUsedForPromo', 'In promo rules')
+				+yesno-header('isFilter', 'Filter')
+				+yesno-header('isSorter', 'Sorter')
+				+yesno-header('isSystem', 'System')
+				
+				th
+			tr
+		tbody
+			each doc in docs
+				tr(data-action='edit' data-url=`${url}/admin/catalog/attributes/edit/${doc._id}`)
+					td= doc.code
+					td= doc.label
+					td= doc.isRequired? 'Yes' : 'No'
+					td= doc.isUsedInPromo? 'Yes' : 'No'
+					td= doc.isFilter? 'Yes' : 'No'
+					td= doc.isSorter? 'Yes' : 'No'
+					td= doc.isSystem? 'Yes' : 'No'
+					td 
+						if !doc.isSystem
+							a(href=`${url}/admin/catalog/attributes/delete/${doc._id}`) Delete
 
 block scripts
-	
 	script(type='text/javascript' src='/js/data-grid.js')

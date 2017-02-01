@@ -4,7 +4,8 @@ const express = require('express'),
 	router = express.Router(),
 	attributeCtrl = require('../../lib/controllers/admin/attribute'),
 	attributeSetCtrl = require('../../lib/controllers/admin/attribute-set'),
-	categoryCtrl = require('../../lib/controllers/admin/category');
+	categoryCtrl = require('../../lib/controllers/admin/category'),
+	productCtrl = require('../../lib/controllers/admin/product');
 
 router.get('/attributes/', attributeCtrl.index);
 router.get('/attributes/edit/:id?', attributeCtrl.edit);
@@ -22,5 +23,13 @@ router.post('/categories/store/:parentId?', categoryCtrl.store);
 router.get('/categories/edit/:id', categoryCtrl.edit);
 router.post('/categories/update/:id?', categoryCtrl.update);
 router.get('/categories/delete/:id', categoryCtrl.delete);
+
+router.get('/products/', productCtrl.index);
+router.get('/products/new', productCtrl.new);
+router.post('/products/create', productCtrl.create);
+router.post('/products/store/:type/:attributeSetId', productCtrl.store);
+router.get('/products/edit/:id', productCtrl.edit);
+router.post('/products/update/:id', productCtrl.update);
+router.get('/products/delete/:id', productCtrl.delete);
 
 module.exports = router;

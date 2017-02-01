@@ -1,0 +1,16 @@
+extends ../../core/layout.pug
+
+block content
+
+	include ../../../mixins/horizontal-form.pug
+
+	h1 New product - step 1
+
+	+form(`${url}/admin/catalog/products/create`)
+		+select-field('type', 'Type', {
+			'simple': 'Simple'
+		})
+		+select-field('attributeSetId', 'Attribute Set', attributeSets)
+		.form-group
+			.col-sm-10.col-sm-offset-2
+				button.btn.btn-primary(type='submit') Continue

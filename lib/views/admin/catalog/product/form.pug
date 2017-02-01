@@ -1,0 +1,61 @@
+extends ../../core/layout.pug
+
+block content
+
+	include ../../../mixins/category-tree.pug
+	include ../../../mixins/horizontal-form.pug
+
+	if doc._id
+		h1 Editing product #{doc.name}
+		- var action = `${url}/admin/catalog/products/save/${doc._id}`;
+	else
+		h1 New product - step 2
+		- var action = `${url}/admin/catalog/products/store/${type}/${attributeSetId}`;
+
+	+form(action)
+
+		ul.nav.nav-tabs(role='tablist')
+			li.active(role='presentation')
+				a(href='#general' aria-controls='general' role='tab' data-toggle='tab') General
+			li(role='presentation')
+				a(href='#categories' aria-controls='categories' role='tab' data-toggle='tab') Categories
+			li(role='preentation')
+				a(href='#meta' aria-controls='meta' role='tab' data-toggle='tab') Meta
+
+		.tab-content
+			#general.tab-pane.active(role='tabpanel')
+				+text-field('name', 'Name')
+				+text-field('sku', 'SKU')
+				+number-field('stock', 'Stock')
+				each a in attributes
+					if a.code !== 'name' && a.code !== 'sku' && !a.code.startsWith('meta')
+						case a.inputType
+							when 'text'
+								+text-field(a.code, a.label, !a.isRequired)
+							when 'textarea'
+								+textarea(a.code, a.label, !a.isRequired)
+							when 'date'
+								+date-field(a.code, a.label, !a.isRequired)
+							when 'select'
+								+select-field(a.code, a.label, a.options, !a.isRequired)
+							when 'multiselect'
+								+multiselect-field(a.code, a.label, a.options, !a.isRequired)
+							when 'yesno'
+								+yesno-field(a.code, a.label, !a.isRequired)
+							when 'price'
+								+number-field(a.code, a.label, !a.isRequired)
+							//- when 'gallery'
+
+
+			#categories.tab-pane(role='tabpanel')
+				select.form-control(name='categories[]' id='categories[]' multiple=true size=15)
+					each leaf in tree
+						+input-branch(leaf, {})
+				span.help-block Select one or more categories for the product. De-select a category by using CTRL + Click
+
+			#meta.tab-pane(role='tabpanel')
+				each a in attributes
+					if a.code.startsWith('meta')
+						+text-field(a.code, a.label, !a.isRequired)
+
+		+submit

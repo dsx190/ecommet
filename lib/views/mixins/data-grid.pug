@@ -1,4 +1,23 @@
 //-
+	Common create button markup for index views.
+mixin create-btn(url)
+	a.btn.btn-success.pull-right(href=url) 
+		i.fa.fa-plus.fa-fw
+		| Create
+
+//-
+	Responsive table container markup
+mixin table(uri)
+	script.
+		var baseUrl = `#{url}/#{uri}`,
+			page = #{pag.currentPage};
+	+toolbar
+	.table-responsive
+		table.table.table-hover.table-striped.table-bordered.data-grid
+			block
+
+
+//-
 	Sortable, filterable text headers on tables.
 	
 mixin text-header(key, label)
@@ -19,8 +38,14 @@ mixin select-header(key, label, options)
 		label= label
 		select.form-control(data-filter=key)
 			option()
-			each opt in options
-				option(value=opt, selected=(pag.filters[key] === opt))= opt
+			if options.length
+				//- Options is an array
+				each opt in options
+					option(value=opt, selected=(pag.filters[key] === opt))= opt
+			else
+				//- Options is an object {value: label}
+				each optVal, optKey in options
+					option(value=optKey, selected=(pag.filters[key] === optKey))= optVal
 
 //-
 	Sortable, filterable yes/no header.
@@ -35,7 +60,7 @@ mixin yesno-header(key, label)
 //-
 	Pagination controls, reset and search buttons
 	
-mixin toolbar()
+mixin toolbar
 	.row-fluid
 		span Page 
 		span 

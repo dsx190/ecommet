@@ -8,7 +8,8 @@
 		"attributes": "../catalog/attribute",
 		"attributeSets": "../catalog/attribute-set",
 		"categories": "../catalog/category",
-		"customers": "../customer/customer"
+		"customers": "../customer/customer",
+		"products": "../catalog/product"
 	},
 	"log": {
 		"file": "system.log"

@@ -4,34 +4,29 @@ block content
 
 	include ../../mixins/data-grid.pug
 
-	a(class='btn btn-success pull-right' href=`${url}/admin/customers/create`) Create
-	h1 Customers 
-	script.
-		var baseUrl = `#{url}/admin/customers`,
-			page = #{pag.currentPage};
+	+create-btn(`${url}/admin/customers/create`)
 
-	+toolbar
-	
-	.table-responsive
-		table.table.table-hover.table-striped.table-bordered.data-grid
-			thead
-				tr
-					+text-header('email', 'Email')
-					+text-header('firstName', 'First name')
-					+text-header('lastName', 'Last name')
-					+text-header('dob', 'Birthdate')
-					+select-header('gender', 'Gender', ['M', 'F'])
-					th
-				tr
-			tbody
-				each doc in docs
-					tr(data-action='edit' data-url=`${url}/admin/customers/edit/${doc._id}`)
-						td= doc.email
-						td= doc.firstName
-						td= doc.lastName
-						td= doc.dob
-						td= doc.gender
-						td: a(href=`${url}/admin/customers/delete/${doc._id}`) Delete
+	h1 Customers
+
+	+table('customers')
+		thead
+			tr
+				+text-header('email', 'Email')
+				+text-header('firstName', 'First name')
+				+text-header('lastName', 'Last name')
+				+text-header('dob', 'Birthdate')
+				+select-header('gender', 'Gender', ['M', 'F'])
+				th
+			tr
+		tbody
+			each doc in docs
+				tr(data-action='edit' data-url=`${url}/admin/customers/edit/${doc._id}`)
+					td= doc.email
+					td= doc.firstName
+					td= doc.lastName
+					td= doc.dob
+					td= doc.gender
+					td: a(href=`${url}/admin/customers/delete/${doc._id}`) Delete
 
 block scripts
 	

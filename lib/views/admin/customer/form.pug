@@ -33,15 +33,8 @@ block content
 		if doc._id
 			#addresses.tab-pane(role='tabpanel')
 
-				a(class='btn btn-success pull-right' href=`${url}/admin/customers/${doc._id}/address`) New
-
-				script.
-					var baseUrl = `#{url}/admin/customers/edit/#{doc._id}`,
-						page = #{pag.currentPage};
-
-				+toolbar
-
-				table.table.table-hover.table-striped.table-bordered.data-grid
+				+create-btn(`${url}/admin/customers/${doc._id}/address`)
+				+table(`admin/customers/edit/#{doc._id}`)
 					thead
 						tr
 							+text-header('name', 'Name')

@@ -19,4 +19,9 @@ block content
 						each attribute in attributes
 							option(value=attribute.code, selected=(doc._id && doc.attributes.indexOf(attribute.code) != -1))= attribute.label
 				span.help-block All system attributes are added by default.
-		+submit
+		
+		if doc.name === 'Default'
+			.alert.alert-info
+				p The default attribute set cannot be modified
+		else
+			+submit

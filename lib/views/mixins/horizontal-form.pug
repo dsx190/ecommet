@@ -47,6 +47,11 @@ mixin password-field(key, label, optional)
 	+field('password', key, label, optional)
 
 //-
+	Number input group
+mixin number-field(key, label, optional)
+	+field('number', key, label, optional)
+
+//-
 	Select input group.
 mixin select-field(key, label, options, optional)
 	- doc = doc || {};
@@ -62,6 +67,23 @@ mixin select-field(key, label, options, optional)
 					//- Options is an object {value: label}
 					each optVal, optKey in options
 						option(value=optKey, selected=(doc[key] === optKey))= optVal
+
+//-
+	Multiselect input group.
+mixin multiselect-field(key, label, options, optional)
+	- doc = doc || {};
+	.form-group
+		label.col-sm-2.control-label(for=`${key}[]`)= label
+		.col-sm-10
+			select.form-control(name=`${key}[]` id=`${key}[]`, required=!optional, multiple=true)
+				if options.length
+					//- Options is an array
+					each opt in options
+						option(value=opt, selected=(doc._id && doc[key].indexOf(opt) !== -1))= opt
+				else
+					//- Options is an object {value: label}
+					each optVal, optKey in options
+						option(value=optKey, selected=(doc._id && doc[key].indexOf(optKey) !== -1))= optVal
 
 
 //-
@@ -83,6 +105,11 @@ mixin textarea(key, label, optional)
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
 			textarea.form-control(id=key name=key required=!optional)
+
+//-
+	Hidden input group
+mixin hidden-field(key, value)
+	input(type='hidden' name=key, value=value)
 
 mixin submit()
 	.form-group

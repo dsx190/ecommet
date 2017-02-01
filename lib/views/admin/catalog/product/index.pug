@@ -1,0 +1,35 @@
+extends ../../core/layout.pug
+
+block content
+
+	include ../../../mixins/data-grid.pug
+
+	+create-btn(`${url}/admin/catalog/products/new`)
+
+	h1 Products
+	
+	+table('admin/catalog/products')
+		thead
+			tr
+				+select-header('type', 'Type', {
+					'super': 'Super',
+					'child': 'Child',
+					'simple': 'Simple'
+				})
+				+text-header('name', 'Name')
+				+text-header('sku', 'SKU')
+				+text-header('price', 'Price')
+				+text-header('stock', 'Stock')
+				+yesno-header('enabled', 'Enabled')
+		tbody
+			each doc in docs
+				tr(data-action='edit' data-url=`${url}/admin/products/edit/${doc._id}`)
+					td= doc.type
+					td= doc.name
+					td= doc.price
+					td= doc.stock
+					td= doc.enabled? 'Yes' : 'No'
+					td: a(href=`${url}/admin/products/delete/${doc._id}`) Delete
+
+block scripts
+	script(type='text/javascript' src='/js/data-grid.js')

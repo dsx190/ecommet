@@ -1,5 +1,11 @@
 //-
-	Renders the category tree branches recursively.
+	Starts rendering the category tree.
+mixin tree
+	.panel-group#accordion-0(role='tablist' aria-multiselectable='true')
+		block
+
+//-
+	Renders the category tree branches recursively for the category index view.
 mixin branch(leaf)
 	.panel.panel.default
 		.panel-heading(role='tab' id=`heading-${leaf._id}`)
@@ -25,3 +31,22 @@ mixin branch(leaf)
 							+branch(child)
 				else
 					p No subcategories for #{leaf.name}
+
+//-
+	Renders the tree recursively for a multiselect form input.
+mixin input-branch(leaf, hash)
+	if leaf.enabled
+		option(value=leaf._id selected=(doc._id && doc.categories.indexOf(leaf._id) !== -1))
+			if leaf.parentId
+				-
+					// Replace the IDs on the path with the names which are set on the hash
+					var pathArr = leaf.path.split('/');
+					pathArr.forEach((id, index) => { pathArr[index] = hash[id]; });
+					var name = `/ ${pathArr.join(' / ')} / ${leaf.name}`;
+				=name
+			else
+				=leaf.name
+		- hash[leaf._id] = leaf.name;
+		if leaf.leaves
+			each child in leaf.leaves
+				+input-branch(child, hash)
