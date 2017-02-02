@@ -36,7 +36,7 @@ mixin branch(leaf)
 	Renders the tree recursively for a multiselect form input.
 mixin input-branch(leaf, hash)
 	if leaf.enabled
-		option(value=leaf._id selected=(doc._id && doc.categories.indexOf(leaf._id) !== -1))
+		option(value=leaf._id, selected=(doc._id && doc.categories.indexOf(leaf._id.toString()) != -1))
 			if leaf.parentId
 				-
 					// Replace the IDs on the path with the names which are set on the hash

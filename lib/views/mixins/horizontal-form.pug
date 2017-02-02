@@ -12,7 +12,7 @@ mixin legend(text)
 
 //-
 	Core field mixin.
-mixin field(type, key, label, optional)
+mixin field(type, key, label, optional, disabled, help)
 	- doc = doc || {};
 	.form-group
 			label.col-sm-2.control-label(for=key)= label
@@ -22,43 +22,47 @@ mixin field(type, key, label, optional)
 					name=key
 					id=key
 					required=!optional
+					disabled=disabled
 				)&attributes(
 					key === 'password'? {} : {'value': `${doc[key] || ''}`}
 				)
+				if help
+					span.help-block
+						=help
 
 //-
 	Text input group.
-mixin text-field(key, label, optional)
-	+field('text', key, label, optional)
+mixin text-field(key, label, optional, disabled, help)
+	+field('text', key, label, optional, disabled, help)
 
 //-
 	Text input group.
-mixin email-field(key, label, optional)
-	+field('email', key, label, optional)
+mixin email-field(key, label, optional,  disabled, help)
+	+field('email', key, label, optional,  disabled, help)
 
 //-
 	Date input group.
-mixin date-field(key, label, optional)
-	+field('date', key, label, optional)
+mixin date-field(key, label, optional,  disabled, help)
+	+field('date', key, label, optional,  disabled, help)
 
 //-
 	Date input group.
-mixin password-field(key, label, optional)
-	+field('password', key, label, optional)
+mixin password-field(key, label, optional,  disabled, help)
+	+field('password', key, label, optional,  disabled, help)
 
 //-
 	Number input group
-mixin number-field(key, label, optional)
-	+field('number', key, label, optional)
+mixin number-field(key, label, optional,  disabled, help)
+	+field('number', key, label, optional,  disabled, help)
 
 //-
 	Select input group.
-mixin select-field(key, label, options, optional)
+mixin select-field(key, label, options, optional, disabled, help)
 	- doc = doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
-			select.form-control(name=key id=key, required=!optional)
+			select.form-control(name=key id=key, required=!optional, disabled=disabled)
 				if options.length
 					//- Options is an array
 					each opt in options
@@ -67,15 +71,18 @@ mixin select-field(key, label, options, optional)
 					//- Options is an object {value: label}
 					each optVal, optKey in options
 						option(value=optKey, selected=(doc[key] === optKey))= optVal
+			if help
+				span.help-block
+					=help
 
 //-
 	Multiselect input group.
-mixin multiselect-field(key, label, options, optional)
+mixin multiselect-field(key, label, options, optional, disabled, help)
 	- doc = doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=`${key}[]`)= label
 		.col-sm-10
-			select.form-control(name=`${key}[]` id=`${key}[]`, required=!optional, multiple=true)
+			select.form-control(name=`${key}[]` id=`${key}[]`, required=!optional, multiple=true, disabled=disabled)
 				if options.length
 					//- Options is an array
 					each opt in options
@@ -84,27 +91,37 @@ mixin multiselect-field(key, label, options, optional)
 					//- Options is an object {value: label}
 					each optVal, optKey in options
 						option(value=optKey, selected=(doc._id && doc[key].indexOf(optKey) !== -1))= optVal
+			if help
+				span.help-block
+					=help
 
 
 //-
 	Yes/no select input group.
-mixin yesno-field(key, label, optional)
+mixin yesno-field(key, label, optional, disabled, help)
 	- doc = doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
-			select.form-control(name=key id=key, required=!optional)
+			select.form-control(name=key id=key, required=!optional, disabled=disabled)
 				option(value='true' selected=(doc[key] === true)) Yes
 				option(value='false' selected=(doc[key] === false)) No
+			if help
+				span.help-block
+					=help
 
 //-
 	Textarea input field.
-mixin textarea(key, label, optional)
+mixin textarea(key, label, optional, disabled, help)
 	- doc = doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
-			textarea.form-control(id=key name=key required=!optional)
+			textarea.form-control(id=key, name=key, required=!optional, disabled=disabled)
+				=doc[key]
+			if help
+				span.help-block
+					=help
 
 //-
 	Hidden input group

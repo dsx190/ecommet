@@ -5,7 +5,7 @@
 		"inputType": "textarea",
 		"options": null,
 		"defaultValue": null,
-		"isRequired": true,
+		"isRequired": false,
 		"isUnique": false,
 		"isUsedForPromo": false,
 		"isFilter": false,

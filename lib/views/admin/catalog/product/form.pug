@@ -11,6 +11,8 @@ block content
 	else
 		h1 New product - step 2
 		- var action = `${url}/admin/catalog/products/store/${type}/${attributeSetId}`;
+	- var isSuper = (doc.type === 'super' || type === 'super')
+	- var superAttributes = {}; // This will be populated when we loop on select-type attributes below.
 
 	+form(action)
 
@@ -21,6 +23,9 @@ block content
 				a(href='#categories' aria-controls='categories' role='tab' data-toggle='tab') Categories
 			li(role='preentation')
 				a(href='#meta' aria-controls='meta' role='tab' data-toggle='tab') Meta
+			if isSuper
+				li(role='presentation')
+					a(href='#children' aria-controls='children' role='tab' data-toggle='tab') Children
 
 		.tab-content
 			#general.tab-pane.active(role='tabpanel')
@@ -37,7 +42,10 @@ block content
 							when 'date'
 								+date-field(a.code, a.label, !a.isRequired)
 							when 'select'
-								+select-field(a.code, a.label, a.options, !a.isRequired)
+								if (!isSuper || !a.isSuper)
+									+select-field(a.code, a.label, a.options, !a.isRequired)
+								else
+									- superAttributes[a.code] = a;
 							when 'multiselect'
 								+multiselect-field(a.code, a.label, a.options, !a.isRequired)
 							when 'yesno'
@@ -58,4 +66,40 @@ block content
 					if a.code.startsWith('meta')
 						+text-field(a.code, a.label, !a.isRequired)
 
+			if isSuper
+				//- Initialize the children counter
+				script.
+					var i = parseInt(`#{doc._id? doc.children.length : 0}`),
+						superAttributes = !{JSON.stringify(superAttributes)};
+				#children.tab-pane(role='tabpanel')
+					.form-group
+						label.col-sm-2.control-label(for='superAttribute')
+						.col-sm-8
+							select.form-control(name='superAttribute' id='superAttribute', required)
+								each superAttr, code in superAttributes
+									option(value=code)= superAttr.label
+						.col-sm-2
+							button.btn.btn-primary(type="button" data-action='new-child')
+								i.fa.fa-plus.fa-fw 
+								| Add child
+					.row
+						.child-fields
+							//- 
+								if doc._id && doc.children.length
+									each child, index in doc.children
+										.row
+											.col-xs-3
+												input.form-control(type='text' name=`children[${index}][name]` required placeholder='Name' value=child.name)
+											.col-xs-3
+												input.form-control(type='text' name=`children[${index}][sku]` required placeholder='SKU' value=child.sku)
+											.col-xs-3
+												input.form-control(type='text' name=`children[${index}][stock]` required placeholder='Stock' value=child.stock)
+											.col-xs-3
+												select.form-control(name=`children[${index}][super]` required)
+													each opt in superOptions[doc.superAttribute || superAttributes[0].code]
+														option(value=opt)= opt
+
 		+submit
+
+block scripts
+	script(type='text/javascript' src='/js/product.js')

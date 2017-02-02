@@ -1,0 +1,33 @@
+function deleteChild(i) {
+	jQuery(`.row.well[data-child="${i}"]`).remove();
+}
+
+jQuery(document).ready($ => {
+	console.log(children);
+
+	$('button[data-action="new-child"]').on('click', e => {
+		var selectedSuperCode = $('#superAttribute').val(),
+			html = `<div class="row well" data-child="${i}">
+			<div class="col-sm-2">
+				<button type="button" class="btn btn-danger" onclick="deleteChild(${i})">
+					<i class="fa fa-times" />
+				</button>
+			</div>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" name="children[${i}][name]" required placeholder="Name">
+			</div>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" name="children[${i}][sku]" required placeholder="SKU">
+			</div>
+			<div class="col-sm-5 col-sm-offset-2">
+				<input type="text" class="form-control" name="children[${i}][stock]" required placeholder="Stock">
+			</div>
+			<div class="col-sm-5">
+				<select class="form-control" name="children[${i}][super]" required>`;
+		superAttributes[selectedSuperCode].options.forEach(opt => {
+			html += `<option value="${opt}">${opt}</option>`;
+		});
+		i++;
+		$('.child-fields').append(html);
+	});
+});

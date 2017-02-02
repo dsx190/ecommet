@@ -8,7 +8,8 @@ block content
 
 	+form(`${url}/admin/catalog/products/create`)
 		+select-field('type', 'Type', {
-			'simple': 'Simple'
+			'simple': 'Simple',
+			'super': 'Super'
 		})
 		+select-field('attributeSetId', 'Attribute Set', attributeSets)
 		.form-group

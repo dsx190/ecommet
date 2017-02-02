@@ -11,14 +11,14 @@ block content
 
 	+form(`${url}/admin/catalog/attributeSets/save/${doc._id || ''}`)
 		+text-field('name', 'Name')
-		.form-group
-			label.col-sm-2.control-label(for='attributes') Add custom attributes
-			.col-sm-10
-				select.form-control(name='attributes' id='attributes' multiple=true)
-					if attributes.length
-						each attribute in attributes
-							option(value=attribute.code, selected=(doc._id && doc.attributes.indexOf(attribute.code) != -1))= attribute.label
-				span.help-block All system attributes are added by default.
+		+multiselect-field(
+			'attributes',
+			'Add custom attributes',
+			attributes,
+			true,
+			false,
+			'All system attributes are added by default'
+		)
 		
 		if doc.name === 'Default'
 			.alert.alert-info

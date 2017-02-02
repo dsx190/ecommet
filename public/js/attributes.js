@@ -14,7 +14,11 @@ jQuery(document).ready(($) => {
 		let val = $('#inputType').val();
 		if (val === 'select' || val === 'multiselect') {
 			$('#options-tab').show();
-			$('#isFilter, #isSuper').removeAttr('disabled');
+			$('#isFilter').removeAttr('disabled');
+			if (val === 'select') {
+				// Enabling the super field only for inputType select
+				$('#isSuper').removeAttr('disabled');
+			}
 		} else {
 			$('#options-tab').hide();
 			$('#isFilter, #isSuper').val('false').prop('disabled', 'disabled');

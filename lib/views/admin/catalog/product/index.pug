@@ -21,15 +21,17 @@ block content
 				+text-header('price', 'Price')
 				+text-header('stock', 'Stock')
 				+yesno-header('enabled', 'Enabled')
+				th
 		tbody
 			each doc in docs
-				tr(data-action='edit' data-url=`${url}/admin/products/edit/${doc._id}`)
+				tr(data-action='edit' data-url=`${url}/admin/catalog/products/edit/${doc._id}`)
 					td= doc.type
 					td= doc.name
-					td= doc.price
+					td= doc.sku
+					td= `$${parseFloat(doc.price).toFixed(2)}`
 					td= doc.stock
 					td= doc.enabled? 'Yes' : 'No'
-					td: a(href=`${url}/admin/products/delete/${doc._id}`) Delete
+					td: a(href=`${url}/admin/catalog/products/delete/${doc._id}`) Delete
 
 block scripts
 	script(type='text/javascript' src='/js/data-grid.js')
