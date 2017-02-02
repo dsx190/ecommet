@@ -7,7 +7,7 @@ block content
 
 	if doc._id
 		h1 Editing product #{doc.name}
-		- var action = `${url}/admin/catalog/products/save/${doc._id}`;
+		- var action = `${url}/admin/catalog/products/update/${doc._id}`;
 	else
 		h1 New product - step 2
 		- var action = `${url}/admin/catalog/products/store/${type}/${attributeSetId}`;
