@@ -14,4 +14,13 @@ block content
 		+select-field('attributeSetId', 'Attribute Set', attributeSets)
 		.form-group
 			.col-sm-10.col-sm-offset-2
-				button.btn.btn-primary(type='submit') Continue
+				button.btn.btn-primary(type='button' data-action='submit') Continue
+
+block scripts
+	script.
+		jQuery(document).ready($ => {
+			$('button[data-action="submit"]').on('click', e => {
+				var url = `${$('form').prop('action')}/${$('#type').val()}/${$('#attributeSetId').val()}`;
+				window.location.href = url;
+			});
+		});

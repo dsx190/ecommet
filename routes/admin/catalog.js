@@ -26,7 +26,7 @@ router.get('/categories/delete/:id', categoryCtrl.delete);
 
 router.get('/products/', productCtrl.index);
 router.get('/products/new', productCtrl.new);
-router.post('/products/create', productCtrl.create);
+router.get('/products/create/:type/:attributeSetId', productCtrl.create);
 router.post('/products/store/:type/:attributeSetId', productCtrl.store);
 router.get('/products/edit/:id', productCtrl.edit);
 router.post('/products/update/:id', productCtrl.update);

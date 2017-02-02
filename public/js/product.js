@@ -3,8 +3,9 @@ function deleteChild(i) {
 }
 
 jQuery(document).ready($ => {
-	console.log(children);
-
+	/**
+	 * Add a child to a super product when clicking on the new child button.
+	 */
 	$('button[data-action="new-child"]').on('click', e => {
 		var selectedSuperCode = $('#superAttribute').val(),
 			html = `<div class="row well" data-child="${i}">

@@ -95,7 +95,7 @@ block content
 											button.btn.btn-danger(type='button' onclick=`deleteChild($j)`)
 												i.fa.fa-times
 										.col-sm-5
-											select.form-control(name=`children[${j}][sku]` required)
+											select.form-control(name=`children[${j}][super]` required)
 												each opt in superAttributes[doc.superAttribute].options
 													option(value=opt, selected=(opt === superValue))= opt
 										.col-sm-5
