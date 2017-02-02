@@ -13,7 +13,6 @@ block content
 			tr
 				+select-header('type', 'Type', {
 					'super': 'Super',
-					'child': 'Child',
 					'simple': 'Simple'
 				})
 				+text-header('name', 'Name')
@@ -25,11 +24,11 @@ block content
 		tbody
 			each doc in docs
 				tr(data-action='edit' data-url=`${url}/admin/catalog/products/edit/${doc._id}`)
-					td= doc.type
+					td= doc.type.charAt(0).toUpperCase() + doc.type.slice(1)
 					td= doc.name
 					td= doc.sku
 					td= `$${parseFloat(doc.price).toFixed(2)}`
-					td= doc.stock
+					td Pending
 					td= doc.enabled? 'Yes' : 'No'
 					td: a(href=`${url}/admin/catalog/products/delete/${doc._id}`) Delete
 

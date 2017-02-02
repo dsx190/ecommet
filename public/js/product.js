@@ -14,19 +14,15 @@ jQuery(document).ready($ => {
 				</button>
 			</div>
 			<div class="col-sm-5">
-				<input type="text" class="form-control" name="children[${i}][name]" required placeholder="Name">
-			</div>
-			<div class="col-sm-5">
-				<input type="text" class="form-control" name="children[${i}][sku]" required placeholder="SKU">
-			</div>
-			<div class="col-sm-5 col-sm-offset-2">
-				<input type="text" class="form-control" name="children[${i}][stock]" required placeholder="Stock">
-			</div>
-			<div class="col-sm-5">
 				<select class="form-control" name="children[${i}][super]" required>`;
 		superAttributes[selectedSuperCode].options.forEach(opt => {
 			html += `<option value="${opt}">${opt}</option>`;
 		});
+		html += `</select>
+			</div>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" name="children[${i}][stock]" required placeholder="Stock">
+			</div></div>`;
 		i++;
 		$('.child-fields').append(html);
 	});

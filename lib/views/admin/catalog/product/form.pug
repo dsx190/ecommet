@@ -11,7 +11,7 @@ block content
 	else
 		h1 New product - step 2
 		- var action = `${url}/admin/catalog/products/store/${type}/${attributeSetId}`;
-	- var isSuper = (doc.type === 'super' || type === 'super')
+	- var isSuper = (doc.type === 'super' || type === 'super') // Creating or editing a super product
 	- var superAttributes = {}; // This will be populated when we loop on select-type attributes below.
 
 	+form(action)
@@ -31,7 +31,9 @@ block content
 			#general.tab-pane.active(role='tabpanel')
 				+text-field('name', 'Name')
 				+text-field('sku', 'SKU')
-				+number-field('stock', 'Stock')
+				if !isSuper
+					//- Super products handle stock per child level
+					+number-field('stock', 'Stock')
 				each a in attributes
 					if a.code !== 'name' && a.code !== 'sku' && !a.code.startsWith('meta')
 						case a.inputType
@@ -43,6 +45,7 @@ block content
 								+date-field(a.code, a.label, !a.isRequired)
 							when 'select'
 								if (!isSuper || !a.isSuper)
+									//- Omit super attributes for super product forms
 									+select-field(a.code, a.label, a.options, !a.isRequired)
 								else
 									- superAttributes[a.code] = a;
@@ -84,20 +87,26 @@ block content
 								| Add child
 					.row
 						.child-fields
-							//- 
-								if doc._id && doc.children.length
-									each child, index in doc.children
-										.row
-											.col-xs-3
-												input.form-control(type='text' name=`children[${index}][name]` required placeholder='Name' value=child.name)
-											.col-xs-3
-												input.form-control(type='text' name=`children[${index}][sku]` required placeholder='SKU' value=child.sku)
-											.col-xs-3
-												input.form-control(type='text' name=`children[${index}][stock]` required placeholder='Stock' value=child.stock)
-											.col-xs-3
-												select.form-control(name=`children[${index}][super]` required)
-													each opt in superOptions[doc.superAttribute || superAttributes[0].code]
-														option(value=opt)= opt
+							if doc._id
+								- var j = 0;
+								each stock, superValue in doc.children
+									.row.well(data-child=j)
+										.col-sm-2
+											button.btn.btn-danger(type='button' onclick=`deleteChild($j)`)
+												i.fa.fa-times
+										.col-sm-5
+											select.form-control(name=`children[${j}][sku]` required)
+												each opt in superAttributes[doc.superAttribute].options
+													option(value=opt, selected=(opt === superValue))= opt
+										.col-sm-5
+											input.form-control(
+												type='text'
+												name=`children[${j}][stock]`
+												required
+												placeholder='Stock'
+												value=stock
+											)
+									- j++;
 
 		+submit
 

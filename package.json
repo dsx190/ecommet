@@ -9,6 +9,7 @@
   "description": "E-commerce framework built in NodeJS",
   "author": "David Salas <dsx190@gmail.com>",
   "dependencies": {
+    "async": "^2.1.4",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.16.0",
     "connect-flash": "^0.1.1",
