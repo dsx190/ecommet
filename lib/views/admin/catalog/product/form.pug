@@ -14,13 +14,15 @@ block content
 	- var isSuper = (doc.type === 'super' || type === 'super') // Creating or editing a super product
 	- var superAttributes = {}; // This will be populated when we loop on select-type attributes below.
 
-	+form(action)
+	+form(action, true)
 
 		ul.nav.nav-tabs(role='tablist')
 			li.active(role='presentation')
 				a(href='#general' aria-controls='general' role='tab' data-toggle='tab') General
 			li(role='presentation')
 				a(href='#categories' aria-controls='categories' role='tab' data-toggle='tab') Categories
+			li(role='presentation')
+				a(href='#images' aria-controls='images' role='tab' data-toggle='tab') Images
 			li(role='preentation')
 				a(href='#meta' aria-controls='meta' role='tab' data-toggle='tab') Meta
 			if isSuper
@@ -55,7 +57,6 @@ block content
 								+yesno-field(a.code, a.label, !a.isRequired)
 							when 'price'
 								+number-field(a.code, a.label, !a.isRequired)
-							//- when 'gallery'
 
 
 			#categories.tab-pane(role='tabpanel')
@@ -63,6 +64,32 @@ block content
 					each leaf in tree
 						+input-branch(leaf, {})
 				span.help-block Select one or more categories for the product. De-select a category by using CTRL + Click
+
+			#images.tab-pane(role='tabpanel')
+				each a in attributes
+					if a.inputType === 'gallery'
+						.well
+							.row
+								.col-sm-2
+									strong= a.label
+								.col-sm-2
+									button.btn.btn-primary(type='button' data-action='attach' data-target=a.code)
+										i.fa.fa-plus.fa-fw
+										| Add
+								.col-sm-8
+									span(id=`label-${a.code}`)
+									input(type='file' name=a.code, id=a.code, multiple style={'display': 'none'})
+							if doc[a.code]
+								each img in doc[a.code]
+									.row
+										.col-sm-2
+											.checkbox
+												label
+													input(type='checkbox' name='gallery[]' value=img)
+													| Remove
+										.col-sm-10
+											img.img-thumbnail(src=img, style={'max-width': '50px', 'max-height': '50px'})
+
 
 			#meta.tab-pane(role='tabpanel')
 				each a in attributes

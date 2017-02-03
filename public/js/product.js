@@ -27,4 +27,19 @@ jQuery(document).ready($ => {
 		i++;
 		$('.child-fields').append(html);
 	});
+
+	/**
+	 * Trigger the file input when clicking the add images button.
+	 */
+	$('button[data-action="attach"]').on('click', e => {
+		var target = $(e.currentTarget).data('target');
+		$(`#${target}`).trigger('click');
+	});
+
+	$('input[type="file"]').on('change', e => {
+		let el = $(e.currentTarget),
+			files = el.prop('files'),
+			names = $.map(files, file => file.name).join('<br>');
+		$(`#label-${el.attr('id')}`).html(names);
+	});
 });

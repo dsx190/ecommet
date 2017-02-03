@@ -1,7 +1,9 @@
 //-
 	Form
-mixin form(action)
-	form.form-horizontal(action=action method='POST')
+mixin form(action, uploadFiles)
+	form.form-horizontal(action=action method='POST')&attributes(
+		uploadFiles? {'enctype' : 'multipart/form-data'} : {}
+	)
 		block
 
 //-

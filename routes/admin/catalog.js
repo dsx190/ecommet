@@ -2,6 +2,26 @@
 
 const express = require('express'),
 	router = express.Router(),
+	path = require('path'),
+	multer = require('multer'),
+	_ = require('lodash'),
+	storage = multer.diskStorage({
+		destination(req, file, cb) {
+			let filesPath = path.join(__dirname, '../../public/img/catalog');
+			cb(null, filesPath);
+		},
+		filename(req, file, cb) {
+			let random = _.random(10000000000);
+			cb(null, `${Date.now()}-${random}.${file.mimetype.split('/')[1]}`);
+		}
+	}),
+	upload = multer({
+		storage,
+		fileFilter(req, file, cb) {
+			let allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+			cb(null, (allowedTypes.indexOf(file.mimetype) != -1));
+		}
+	}),
 	attributeCtrl = require('../../lib/controllers/admin/attribute'),
 	attributeSetCtrl = require('../../lib/controllers/admin/attribute-set'),
 	categoryCtrl = require('../../lib/controllers/admin/category'),
@@ -27,9 +47,9 @@ router.get('/categories/delete/:id', categoryCtrl.delete);
 router.get('/products/', productCtrl.index);
 router.get('/products/new', productCtrl.new);
 router.get('/products/create/:type/:attributeSetId', productCtrl.create);
-router.post('/products/store/:type/:attributeSetId', productCtrl.store);
+router.post('/products/store/:type/:attributeSetId', upload.array('gallery'), productCtrl.store);
 router.get('/products/edit/:id', productCtrl.edit);
-router.post('/products/update/:id', productCtrl.update);
+router.post('/products/update/:id', upload.array('gallery'), productCtrl.update);
 router.get('/products/delete/:id', productCtrl.delete);
 
 module.exports = router;
