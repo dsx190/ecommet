@@ -8,6 +8,9 @@ const express = require('express'),
 	identify = require('./middleware').identify,
 	auth = require('./middleware').auth,
 	// Admin routers
+	permission = require('./permission'),
+	role = require('./role'),
+	user = require('./user'),
 	sales = require('./sales'),
 	customer = require('./customer'),
 	catalog = require('./catalog');
@@ -31,6 +34,9 @@ router.get('/dashboard', auth, controller.dashboard);
 /**
  * App specific routes.
  */
+router.use('/permissions', permission);
+router.use('/roles', role);
+router.use('/users', user);
 router.use('/sales', auth, sales);
 router.use('/customers', /*auth, */customer);
 router.use('/catalog', /*auth, */catalog);

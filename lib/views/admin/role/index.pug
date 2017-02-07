@@ -1,0 +1,26 @@
+extends ../core/layout.pug
+
+block content
+
+	include ../../mixins/data-grid.pug
+
+	+create-btn(`${url}/admin/roles/edit`)
+
+	h1 Roles
+
+	+table('admin/roles')
+		thead
+			tr
+				+text-header('name', 'Name')
+				th
+			tr
+		tbody
+			each doc in docs
+				tr(data-action='edit' data-url=`${url}/admin/roles/edit/${doc._id}`)
+					td= doc.name
+					td 
+						if !doc.isSystem
+							a(href=`${url}/admin/roles/delete/${doc._id}`) Delete
+
+block scripts
+	script(type='text/javascript' src='/js/data-grid.js')

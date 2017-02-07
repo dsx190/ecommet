@@ -1,0 +1,26 @@
+extends ../core/layout.pug
+
+block content
+
+	include ../../mixins/data-grid.pug
+
+	+create-btn(`${url}/admin/users/edit`)
+
+	h1 Users
+
+	+table('admin/users')
+		thead
+			tr
+				+text-header('email', 'Email')
+				+text-header('name', 'Name')
+				th
+			tr
+		tbody
+			each doc in docs
+				tr(data-action='edit' data-url=`${url}/admin/users/edit/${doc._id}`)
+					td= doc.email
+					td= doc.name
+					td: a(href=`${url}/admin/users/delete/${doc._id}`) Delete
+
+block scripts
+	script(type='text/javascript' src='/js/data-grid.js')

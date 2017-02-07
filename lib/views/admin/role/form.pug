@@ -1,0 +1,16 @@
+extends ../core/layout.pug
+
+block content
+
+	include ../../mixins/horizontal-form.pug
+
+	if doc._id
+		h1 Editing role #{doc.name}
+	else
+		h1 New role
+
+	+form(`${url}/admin/roles/save/${doc._id || ''}`)
+
+		+text-field('name', 'Name')
+		+multiselect-field('permissions', 'Permissions', permissions, true)
+		+submit

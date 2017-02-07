@@ -9,7 +9,10 @@
 		"attributeSets": "../catalog/attribute-set",
 		"categories": "../catalog/category",
 		"customers": "../customer/customer",
-		"products": "../catalog/product"
+		"permissions": "../admin/permission",
+		"products": "../catalog/product",
+		"roles": "../admin/role",
+		"users": "../admin/user"
 	},
 	"log": {
 		"file": "system.log"

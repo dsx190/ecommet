@@ -1,0 +1,26 @@
+extends ../core/layout.pug
+
+block content
+
+	include ../../mixins/data-grid.pug
+
+	+create-btn(`${url}/admin/permissions/edit`)
+
+	h1 Permissions
+
+	+table('admin/permissions')
+		thead
+			tr
+				+text-header('name', 'Name')
+				+text-header('path', 'Path')
+				th
+			tr
+		tbody
+			each doc in docs
+				tr(data-action='edit' data-url=`${url}/admin/permissions/edit/${doc._id}`)
+					td= doc.name
+					td= doc.path
+					td: a(href=`${url}/admin/permissions/delete/${doc._id}`) Delete
+
+block scripts
+	script(type='text/javascript' src='/js/data-grid.js')

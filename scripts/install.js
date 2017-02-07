@@ -2,7 +2,7 @@
 
 const Attribute = require('../lib/models/catalog/attribute'),
 	AttributeSet = require('../lib/models/catalog/attribute-set'),
-	systemAttributes = require('./system-attributes.json'),
+	systemAttributes = require('./data/system-attributes.json'),
 	_ = require('lodash');
 
 /**

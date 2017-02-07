@@ -1,0 +1,16 @@
+extends ../core/layout.pug
+
+block content
+
+	include ../../mixins/horizontal-form.pug
+
+	if doc._id
+		h1 Editing permission #{doc.name}
+	else
+		h1 New permission
+
+	+form(`${url}/admin/permissions/save/${doc._id || ''}`)
+
+		+text-field('name', 'Name')
+		+text-field('path', 'Path')
+		+submit

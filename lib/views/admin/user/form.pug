@@ -1,0 +1,18 @@
+extends ../core/layout.pug
+
+block content
+
+	include ../../mixins/horizontal-form.pug
+
+	if doc._id
+		h1 Editing user #{doc.name}
+	else
+		h1 New user
+
+	+form(`${url}/admin/users/save/${doc._id || ''}`)
+
+		+email-field('email', 'Email')
+		+text-field('name', 'Name')
+		+select-field('role', 'Role', roles)
+		+password-field('password', 'Password', doc._id)
+		+submit
