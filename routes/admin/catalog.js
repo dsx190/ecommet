@@ -15,7 +15,8 @@ router.get('/attributes/delete/:id', attributeCtrl.delete);
 
 router.get('/attributeSets/', attributeSetCtrl.index);
 router.get('/attributeSets/edit/:id?', attributeSetCtrl.edit);
-router.post('/attributeSets/save/:id?', attributeSetCtrl.save);
+router.post('/attributeSets/store', attributeSetCtrl.store);
+router.post('/attributeSets/update/:id', attributeSetCtrl.update);
 router.get('/attributeSets/delete/:id', attributeSetCtrl.delete);
 
 router.get('/categories/', categoryCtrl.index);

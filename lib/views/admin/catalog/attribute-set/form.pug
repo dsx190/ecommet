@@ -6,10 +6,12 @@ block content
 
 	if doc._id
 		h1 Editing attribute set #{doc.name}
+		- var uri = `update/${doc._id}`;
 	else
 		h1 New attribute set
+		- var uri = 'store';
 
-	+form(`${url}/admin/catalog/attributeSets/save/${doc._id || ''}`)
+	+form(`${url}/admin/catalog/attributeSets/${uri}`)
 		+text-field('name', 'Name')
 		+multiselect-field(
 			'attributes',
