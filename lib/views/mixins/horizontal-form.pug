@@ -107,7 +107,7 @@ mixin yesno-field(key, label, optional, disabled, help)
 		.col-sm-10
 			select.form-control(name=key id=key, required=!optional, disabled=disabled)
 				option(value='true' selected=(doc[key] === true)) Yes
-				option(value='false' selected=(doc[key] === false)) No
+				option(value='false' selected=(!doc[key])) No
 			if help
 				span.help-block
 					=help
