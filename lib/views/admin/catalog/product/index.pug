@@ -17,6 +17,7 @@ block content
 				})
 				+text-header('name', 'Name')
 				+text-header('sku', 'SKU')
+				+select-header('attributeSetId', 'Attribute Set', attributeSets)
 				+text-header('price', 'Price')
 				+yesno-header('isInStock', 'In Stock')
 				+yesno-header('enabled', 'Enabled')
@@ -27,6 +28,7 @@ block content
 					td= doc.type.charAt(0).toUpperCase() + doc.type.slice(1)
 					td= doc.name
 					td= doc.sku
+					td= attributeSets[doc.attributeSetId]
 					td= `$${parseFloat(doc.price).toFixed(2)}`
 					td= doc.isInStock ? 'Yes' : 'No'
 					td= doc.enabled ? 'Yes' : 'No'
