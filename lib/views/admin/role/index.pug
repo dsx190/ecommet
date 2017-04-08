@@ -19,7 +19,7 @@ block content
 				tr(data-action='edit' data-url=`${url}/admin/roles/edit/${doc._id}`)
 					td= doc.name
 					td 
-						if !doc.isSystem
+						if doc.name !== 'Admin'
 							a(href=`${url}/admin/roles/delete/${doc._id}`) Delete
 
 block scripts

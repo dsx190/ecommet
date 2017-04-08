@@ -13,4 +13,9 @@ block content
 
 		+text-field('name', 'Name')
 		+multiselect-field('permissions', 'Permissions', permissions, true)
-		+submit
+
+		if doc._id && doc.name === 'Admin'
+			.alert.alert-info
+				p The Admin role cannot be modified
+		else
+			+submit
