@@ -1,0 +1,38 @@
+[
+	{"name": "Attribute index", "path": "/admin/catalog/attributes/"},
+	{"name": "Attribute save", "path": "/admin/catalog/attributes/save/:id?"},
+	{"name": "Attribute delete", "path": "/admin/catalog/attributes/delete/:id"},
+
+	{"name": "Attribute Set index", "path": "/admin/catalog/attributeSets/"},
+	{"name": "Attribute Set store", "path": "/admin/catalog/attributeSets/store"},
+	{"name": "Attribute Set update", "path": "/admin/catalog/attributeSets/update/:id"},
+	{"name": "Attribute Set delete", "path": "/admin/catalog/attributeSets/delete/:id"},
+
+	{"name": "Categories index", "path": "/admin/catalog/categories/"},
+	{"name": "Categories store", "path": "/admin/catalog/categories/store/:parentId?"},
+	{"name": "Categories update", "path": "/admin/catalog/categories/update/:id?"},
+	{"name": "Categories delete", "path": "/admin/catalog/categories/delete/:id"},
+
+	{"name": "Product index", "path": "/admin/catalog/products/"},
+	{"name": "Product store", "path": "/admin/catalog/products/store/:type/:attributeSetId"},
+	{"name": "Product update", "path": "/admin/catalog/products/update/:id"},
+	{"name": "Product delete", "path": "/admin/catalog/products/delete/:id"},
+
+	{"name": "Customer index", "path": "/admin/customer/"},
+	{"name": "Customer save", "path": "/admin/customer/save/:id?"},
+	{"name": "Customer delete", "path": "/admin/customer/delete/:id"},
+	{"name": "Customer address delete", "path": "/admin/customer/:customerId/address/delete/:id"},
+	{"name": "Customer address save", "path": "/admin/customer/:customerId/address/:id?"},
+
+	{"name": "Permission index", "path": "/admin/permissions/"},
+	{"name": "Permission save", "path": "/admin/permissions/save/:id?"},
+	{"name": "Permission delete", "path": "/admin/permissions/delete/:id"},
+
+	{"name": "Role index", "path": "/admin/roles/"},
+	{"name": "Role save", "path": "/admin/roles/save/:id?"},
+	{"name": "Role delete", "path": "/admin/roles/delete/:id"},
+
+	{"name": "User index", "path": "/admin/users/"},
+	{"name": "User save", "path": "/admin/users/save/:id?"},
+	{"name": "User delete", "path": "/admin/users/delete/:id}"}
+]
