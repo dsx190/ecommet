@@ -8,8 +8,12 @@ const Customer = require('../lib/models/customer/customer'),
  */
 exports.setLocals = (req, res, next) => {
 	res.locals.url = Config.get('server.url');
-	res.locals.messages = () => {
-		return req.flash();
+	res.locals.old = req.flash('old')[0];
+	res.locals.messages = {
+		'info': req.flash('info'),
+		'error': req.flash('error'),
+		'success': req.flash('success'),
+		'warning': req.flash('warning')
 	};
 	next();
 };

@@ -15,7 +15,7 @@ mixin legend(text)
 //-
 	Core field mixin.
 mixin field(type, key, label, optional, disabled, help)
-	- doc = doc || {};
+	- data = old || doc || {};
 	.form-group
 			label.col-sm-2.control-label(for=key)= label
 			.col-sm-10
@@ -26,7 +26,7 @@ mixin field(type, key, label, optional, disabled, help)
 					required=!optional
 					disabled=disabled
 				)&attributes(
-					key === 'password'? {} : {'value': `${doc[key] || ''}`}
+					key === 'password'? {} : {'value': `${data[key] || ''}`}
 				)
 				if help
 					span.help-block
@@ -60,7 +60,7 @@ mixin number-field(key, label, optional,  disabled, help)
 //-
 	Select input group.
 mixin select-field(key, label, options, optional, disabled, help)
-	- doc = doc || {};
+	- data = old || doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
@@ -68,11 +68,11 @@ mixin select-field(key, label, options, optional, disabled, help)
 				if options.length
 					//- Options is an array
 					each opt in options
-						option(value=opt, selected=(doc[key] === opt))= opt
+						option(value=opt, selected=(data[key] === opt))= opt
 				else
 					//- Options is an object {value: label}
 					each optVal, optKey in options
-						option(value=optKey, selected=(doc[key] === optKey))= optVal
+						option(value=optKey, selected=(data[key] === optKey))= optVal
 			if help
 				span.help-block
 					=help
@@ -80,7 +80,7 @@ mixin select-field(key, label, options, optional, disabled, help)
 //-
 	Multiselect input group.
 mixin multiselect-field(key, label, options, optional, disabled, help)
-	- doc = doc || {};
+	- data = old || doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=`${key}[]`)= label
 		.col-sm-10
@@ -88,11 +88,11 @@ mixin multiselect-field(key, label, options, optional, disabled, help)
 				if options.length
 					//- Options is an array
 					each opt in options
-						option(value=opt, selected=(doc._id && doc[key].indexOf(opt) !== -1))= opt
+						option(value=opt, selected=(doc._id && data[key].indexOf(opt) !== -1))= opt
 				else
 					//- Options is an object {value: label}
 					each optVal, optKey in options
-						option(value=optKey, selected=(doc._id && doc[key].indexOf(optKey) !== -1))= optVal
+						option(value=optKey, selected=(doc._id && data[key].indexOf(optKey) !== -1))= optVal
 			if help
 				span.help-block
 					=help
@@ -101,13 +101,13 @@ mixin multiselect-field(key, label, options, optional, disabled, help)
 //-
 	Yes/no select input group.
 mixin yesno-field(key, label, optional, disabled, help)
-	- doc = doc || {};
+	- data = old || doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
 			select.form-control(name=key id=key, required=!optional, disabled=disabled)
-				option(value='true' selected=(doc[key] === true)) Yes
-				option(value='false' selected=(!doc[key])) No
+				option(value='true' selected=(data[key] === true)) Yes
+				option(value='false' selected=(!data[key])) No
 			if help
 				span.help-block
 					=help
@@ -115,12 +115,12 @@ mixin yesno-field(key, label, optional, disabled, help)
 //-
 	Textarea input field.
 mixin textarea(key, label, optional, disabled, help)
-	- doc = doc || {};
+	- data = old || doc || {};
 	.form-group
 		label.col-sm-2.control-label(for=key)= label
 		.col-sm-10
 			textarea.form-control(id=key, name=key, required=!optional, disabled=disabled)
-				=doc[key]
+				=data[key]
 			if help
 				span.help-block
 					=help
