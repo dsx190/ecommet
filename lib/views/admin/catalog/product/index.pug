@@ -18,7 +18,7 @@ block content
 				+text-header('name', 'Name')
 				+text-header('sku', 'SKU')
 				+text-header('price', 'Price')
-				+text-header('stock', 'Stock')
+				+yesno-header('isInStock', 'In Stock')
 				+yesno-header('enabled', 'Enabled')
 				th
 		tbody
@@ -28,8 +28,8 @@ block content
 					td= doc.name
 					td= doc.sku
 					td= `$${parseFloat(doc.price).toFixed(2)}`
-					td Pending
-					td= doc.enabled? 'Yes' : 'No'
+					td= doc.isInStock ? 'Yes' : 'No'
+					td= doc.enabled ? 'Yes' : 'No'
 					td: a(href=`${url}/admin/catalog/products/delete/${doc._id}`) Delete
 
 block scripts
